@@ -1,4 +1,4 @@
-import { createApp } from 'vue'
+import Vue, { createApp } from 'vue'
 import App from './App.vue'
 import store from './store'
 import router from './router'
@@ -14,7 +14,7 @@ window.onload = async () => {
   if (!window.getOfflineSigner || !window.keplr) {
     alert('Please install keplr extension.')
   } else {
-    if (window.keplr.experimentalSuggestChain) {
+    if (window.keplr?.experimentalSuggestChain) {
       try {
         await window.keplr.experimentalSuggestChain({
           chainId: chainId,

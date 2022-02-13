@@ -40,9 +40,6 @@ export default {
       order: `desc`,
     },
   }),
-  beforeMount() {
-    console.log(this.$store.getters)
-  },
   computed: {
     // ...mapState([`session`]),
     // ...mapState(`cosmos.bank.v1beta1`, ['balances', 'rewards']),

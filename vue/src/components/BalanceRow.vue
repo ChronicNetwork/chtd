@@ -26,19 +26,19 @@
     <td v-if="!unstakingBalance" :key="balance.denom + '_actions'" class="actions">
       <div v-if="send" class="icon-button-container">
         <button class="icon-button" @click="$emit('open-send-modal')">
-          <span class="sp-icon sp-icon-UpArrow" />
+          <ArrowUp />
         </button>
         <span>Send</span>
       </div>
       <div v-if="stake" class="icon-button-container">
         <button class="icon-button" @click="$emit('open-stake-modal')">
-          <span class="sp-icon sp-icon-UpArrow" />
+          <ArrowUp />
         </button>
         <span>Stake</span>
       </div>
       <div v-if="unstake" class="icon-button-container">
         <button class="icon-button" @click="$emit('open-unstake-modal')">
-          <span class="sp-icon sp-icon-DownArrow" />
+          <ArrowDown />
         </button>
         <span>Unstake</span>
       </div>
@@ -48,10 +48,16 @@
 <script>
 import { bigFigureOrShortDecimals } from '@/common/numbers'
 import { fromNow } from '@/common/time'
+import ArrowDown from 'vue-material-design-icons/ArrowDown'
+import ArrowUp from 'vue-material-design-icons/ArrowUp'
 // import network from '@/common/network'
 
 export default {
   name: `BalanceRow`,
+  components: {
+    ArrowDown,
+    ArrowUp,
+  },
   props: {
     balance: {
       type: Object,

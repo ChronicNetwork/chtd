@@ -34,13 +34,6 @@ export default {
   },
   computed: {
     delegations: function () {
-      console.log(
-        this.$store.getters['cosmos.staking.v1beta1/getDelegatorDelegations']({
-          params: {
-            address: this.$store.getters['common/wallet/address'],
-          },
-        }),
-      )
       return (
         this.$store.getters['cosmos.staking.v1beta1/getDelegatorDelegations']({
           params: {

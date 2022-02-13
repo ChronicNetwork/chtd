@@ -8,6 +8,7 @@ import MyNFT from '@/views/MyNFT.vue'
 import TestNet from '@/views/TestNet.vue'
 import Relayers from '@/views/Relayers.vue'
 import BlockView from '@/views/BlockView'
+import Swap from '@/views/Swap'
 
 const routerHistory = createWebHistory()
 const routes = [
@@ -18,6 +19,7 @@ const routes = [
   { path: '/types', component: Types },
   { path: '/relayers', component: Relayers },
   { path: '/blocks', component: BlockExplorer },
+  { path: '/swap', component: Swap },
   { path: '/block/:id', component: BlockView },
   { path: '/gov-proposal', component: GovProposal },
   { path: '/my-nft', component: MyNFT },

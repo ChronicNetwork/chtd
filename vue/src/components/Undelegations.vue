@@ -31,13 +31,6 @@ export default {
   }),
   computed: {
     undelegations() {
-      console.log(
-        this.$store.getters['cosmos.staking.v1beta1/getDelegatorUnbondingDelegations']({
-          params: {
-            address: this.$store.getters['common/wallet/address'],
-          },
-        }),
-      )
       return (
         this.$store.getters['cosmos.staking.v1beta1/getDelegatorUnbondingDelegations']({
           params: {
