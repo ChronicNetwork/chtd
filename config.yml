@@ -1,11 +1,10 @@
 accounts:
-  - name: alice
-    coins: ["18500000cht", "100000000cgas"]
+  - name: walt
+    coins: ["1850000000000000cgas"]
   - name: austin
-    coins: ["18500000cht", "100000000cgas"]
+    coins: ["185000000000000cgas"]
   - name: carlos
-    coins: ["5000000cht", "5000000cgas"]
-    address: chronic1gqqhp8clrckg22d2dfn2z5rs85w3pynae7648x
+    coins: ["5000000000000cgas"]
 validator:
   name: alice
   staked: "10000000cgas"
