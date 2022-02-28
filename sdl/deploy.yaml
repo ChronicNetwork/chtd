@@ -1,0 +1,56 @@
+---
+version: "2.0"
+
+services:
+  akash:
+    image: carlosbie/chronic:latest
+    env:
+      - CHTD_MONIKER=chronic-val-1
+      - SEEDS_URL=https://raw.githubusercontent.com/ChronicNetwork/net/main/seed-nodes.txt
+      - SYNC_URL=https://raw.githubusercontent.com/ChronicNetwork/net/main/rpc-nodes.txt
+      - GENESIS_URL=https://raw.githubusercontent.com/ChronicNetwork/net/main/genesis.json
+      - DOUBLE_SIGN_CHECK_HEIGHT=10
+      - ADDR_BOOK_STRICT=0
+      - PEX=0
+    expose:
+      - port: 26656
+        as: 26656
+        to:
+          - global: true
+      - port: 26657
+        as: 26657
+        to:
+          - global: true
+      - port: 1317
+        as: 1317
+        to:
+          - global: true
+
+profiles:
+  compute:
+    akash:
+      resources:
+        cpu:
+          units: 1
+        memory:
+          size: 2Gi
+        storage:
+          size: 32Gi
+  placement:
+    dcloud:
+      attributes:
+        host: akash
+      signedBy:
+        anyOf:
+          - akash1365yvmc4s7awdyj3n2sav7xfx76adc6dnmlx63
+          - akash15vyzeepk69mnjptu0mzlcn4fz84u26e26clgz7
+      pricing:
+        akash:
+          denom: uakt
+          amount: 100
+
+deployment:
+  akash:
+    dcloud:
+      profile: akash
+      count: 1

@@ -29,6 +29,11 @@ RUN chmod +x /opt/*.sh
 
 WORKDIR /opt
 
+
+
+CMD ["/usr/bin/chtd", "version"]
+
+
 # rest server
 EXPOSE 1317
 # tendermint p2p
@@ -36,4 +41,22 @@ EXPOSE 26656
 # tendermint rpc
 EXPOSE 26657
 
-CMD ["/usr/bin/chtd", "version"]
+FROM ubuntu
+COPY --from=go-builder /code/build/chtd /usr/bin/chtd
+
+RUN apt-get update && apt-get install --no-install-recommends --assume-yes ca-certificates python3 python3-toml p7zip-full curl && apt-get clean
+RUN mkdir /node
+RUN mkdir .cht
+
+COPY run.sh /node/
+
+COPY app.toml /node/
+COPY config.toml /node/
+
+
+COPY run.sh /node/
+RUN chmod 555 /node/run.sh
+
+COPY ./patch_config_toml.py /node/
+
+CMD /node/run.sh
