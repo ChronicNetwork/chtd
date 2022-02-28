@@ -6,9 +6,9 @@ services:
     image: carlosbie/chronic:latest
     env:
       - CHTD_MONIKER=chronic-val-1
-      - SEEDS_URL=https://raw.githubusercontent.com/ChronicNetwork/net/main/seed-nodes.txt
-      - SYNC_URL=https://raw.githubusercontent.com/ChronicNetwork/net/main/rpc-nodes.txt
-      - GENESIS_URL=https://raw.githubusercontent.com/ChronicNetwork/net/main/genesis.json
+      - SEEDS_URL=<SEEDS_URL>
+      - SYNC_URL=<RPCS_URL>
+      - GENESIS_URL=<GENESIS_URL>
       - DOUBLE_SIGN_CHECK_HEIGHT=10
       - ADDR_BOOK_STRICT=0
       - PEX=0
