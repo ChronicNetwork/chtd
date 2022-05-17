@@ -4,7 +4,7 @@ info:
   name: ''
   description: ''
 paths:
-  /chronicnetwork/cht/v1/code:
+  /cosmwasm/cht/v1/code:
     get:
       summary: Codes gets the metadata for all stored wasm codes
       operationId: ChronicNetworkChtdChtCodes
