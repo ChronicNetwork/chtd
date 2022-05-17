@@ -1,0 +1,14 @@
+syntax = "proto3";
+package GlassflowNFT.chtd.chtd;
+
+import "gogoproto/gogo.proto";
+import "chtd/params.proto";
+// this line is used by starport scaffolding # genesis/proto/import
+
+option go_package = "github.com/GlassflowNFT/chtd/x/chtd/types";
+
+// GenesisState defines the chtd module's genesis state.
+message GenesisState {
+  Params params = 1 [(gogoproto.nullable) = false];
+  // this line is used by starport scaffolding # genesis/proto/state
+}

@@ -97,7 +97,7 @@ func NewKeeper(
 	supportedFeatures string,
 	opts ...Option,
 ) Keeper {
-	wasmer, err := wasmvm.NewVM(filepath.Join(homeDir, "cht"), supportedFeatures, contractMemoryLimit, wasmConfig.ContractDebugMode, wasmConfig.MemoryCacheSize)
+	wasmer, err := wasmvm.NewVM(filepath.Join(homeDir, "cht"), supportedFeatures, contractMemoryLimit, chtConfig.ContractDebugMode, chtConfig.MemoryCacheSize)
 	if err != nil {
 		panic(err)
 	}
