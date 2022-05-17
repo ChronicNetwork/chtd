@@ -82,7 +82,7 @@ build: go.sum
 ifeq ($(OS),Windows_NT)
 	exit 1
 else
-	go build -mod=readonly $(BUILD_FLAGS) -o build/wasmd ./cmd/wasmd
+	go build -mod=readonly $(BUILD_FLAGS) -o build/chtd ./cmd/chtd
 endif
 
 build-contract-tests-hooks:
@@ -93,7 +93,7 @@ else
 endif
 
 install: go.sum
-	go install -mod=readonly $(BUILD_FLAGS) ./cmd/wasmd
+	go install -mod=readonly $(BUILD_FLAGS) ./cmd/chtd
 
 ########################################
 ### Tools & dependencies
@@ -109,7 +109,7 @@ go.sum: go.mod
 draw-deps:
 	@# requires brew install graphviz or apt-get install graphviz
 	go get github.com/RobotsAndPencils/goviz
-	@goviz -i ./cmd/wasmd -d 2 | dot -Tpng -o dependency-graph.png
+	@goviz -i ./cmd/chtd -d 2 | dot -Tpng -o dependency-graph.png
 
 clean:
 	rm -rf snapcraft-local.yaml build/
@@ -159,7 +159,7 @@ lint: format-tools
 format: format-tools
 	find . -name '*.go' -type f -not -path "./vendor*" -not -path "*.git*" -not -path "./client/lcd/statik/statik.go" | xargs gofumpt -w -s
 	find . -name '*.go' -type f -not -path "./vendor*" -not -path "*.git*" -not -path "./client/lcd/statik/statik.go" | xargs misspell -w
-	find . -name '*.go' -type f -not -path "./vendor*" -not -path "*.git*" -not -path "./client/lcd/statik/statik.go" | xargs goimports -w -local github.com/CosmWasm/wasmd
+	find . -name '*.go' -type f -not -path "./vendor*" -not -path "*.git*" -not -path "./client/lcd/statik/statik.go" | xargs goimports -w -local github.com/ChronicNetwork/chtd
 
 
 ###############################################################################

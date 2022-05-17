@@ -97,7 +97,7 @@ func NewKeeper(
 	supportedFeatures string,
 	opts ...Option,
 ) Keeper {
-	wasmer, err := wasmvm.NewVM(filepath.Join(homeDir, "cht"), supportedFeatures, contractMemoryLimit, chtConfig.ContractDebugMode, chtConfig.MemoryCacheSize)
+	wasmer, err := wasmvm.NewVM(filepath.Join(homeDir, "cht"), supportedFeatures, contractMemoryLimit, wasmConfig.ContractDebugMode, wasmConfig.MemoryCacheSize)
 	if err != nil {
 		panic(err)
 	}
@@ -172,7 +172,7 @@ func (k Keeper) create(ctx sdk.Context, creator sdk.AccAddress, chtCode []byte, 
 	if err != nil {
 		return 0, sdkerrors.Wrap(types.ErrCreateFailed, err.Error())
 	}
-	ctx.GasMeter().ConsumeGas(k.gasRegister.CompileCosts(len(chtCode)), "Compiling WASM Bytecode")
+	ctx.GasMeter().ConsumeGas(k.gasRegister.CompileCosts(len(chtCode)), "Compiling CHT Bytecode")
 
 	checksum, err := k.wasmVM.Create(chtCode)
 	if err != nil {
@@ -232,7 +232,7 @@ func (k Keeper) instantiate(ctx sdk.Context, codeID uint64, creator, admin sdk.A
 	defer telemetry.MeasureSince(time.Now(), "cht", "contract", "instantiate")
 
 	instanceCosts := k.gasRegister.NewContractInstanceCosts(k.IsPinnedCode(ctx, codeID), len(initMsg))
-	ctx.GasMeter().ConsumeGas(instanceCosts, "Loading CosmWasm module: instantiate")
+	ctx.GasMeter().ConsumeGas(instanceCosts, "Loading ChronicNetwork module: instantiate")
 
 	// create contract address
 	contractAddress := k.generateContractAddress(ctx, codeID)
@@ -333,7 +333,7 @@ func (k Keeper) execute(ctx sdk.Context, contractAddress sdk.AccAddress, caller 
 	}
 
 	executeCosts := k.gasRegister.InstantiateContractCosts(k.IsPinnedCode(ctx, contractInfo.CodeID), len(msg))
-	ctx.GasMeter().ConsumeGas(executeCosts, "Loading CosmWasm module: execute")
+	ctx.GasMeter().ConsumeGas(executeCosts, "Loading ChronicNetwork module: execute")
 
 	// add more funds
 	if !coins.IsZero() {
@@ -448,7 +448,7 @@ func (k Keeper) Sudo(ctx sdk.Context, contractAddress sdk.AccAddress, msg []byte
 	}
 
 	sudoSetupCosts := k.gasRegister.InstantiateContractCosts(k.IsPinnedCode(ctx, contractInfo.CodeID), len(msg))
-	ctx.GasMeter().ConsumeGas(sudoSetupCosts, "Loading CosmWasm module: sudo")
+	ctx.GasMeter().ConsumeGas(sudoSetupCosts, "Loading ChronicNetwork module: sudo")
 
 	env := types.NewEnv(ctx, contractAddress)
 
@@ -604,7 +604,7 @@ func (k Keeper) QuerySmart(ctx sdk.Context, contractAddr sdk.AccAddress, req []b
 	}
 
 	smartQuerySetupCosts := k.gasRegister.InstantiateContractCosts(k.IsPinnedCode(ctx, contractInfo.CodeID), len(req))
-	ctx.GasMeter().ConsumeGas(smartQuerySetupCosts, "Loading CosmWasm module: query")
+	ctx.GasMeter().ConsumeGas(smartQuerySetupCosts, "Loading ChronicNetwork module: query")
 
 	// prepare querier
 	querier := k.newQueryHandler(ctx, contractAddr)
@@ -891,7 +891,7 @@ func (k Keeper) runtimeGasForContract(ctx sdk.Context) uint64 {
 
 func (k Keeper) consumeRuntimeGas(ctx sdk.Context, gas uint64) {
 	consumed := k.gasRegister.FromWasmVMGas(gas)
-	ctx.GasMeter().ConsumeGas(consumed, "cht contract")
+	ctx.GasMeter().ConsumeGas(consumed, "wasm contract")
 	// throw OutOfGas error if we ran out (got exactly to zero due to better limit enforcing)
 	if ctx.GasMeter().IsOutOfGas() {
 		panic(sdk.ErrorOutOfGas{Descriptor: "Wasmer function execution"})
