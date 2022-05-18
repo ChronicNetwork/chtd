@@ -4,9 +4,25 @@ import { StdFee } from "@cosmjs/launchpad";
 import { SigningStargateClient } from "@cosmjs/stargate";
 import { Registry, OfflineSigner, EncodeObject, DirectSecp256k1HdWallet } from "@cosmjs/proto-signing";
 import { Api } from "./rest";
+import { MsgStoreCode } from "./types/cht/tx";
+import { MsgInstantiateContract } from "./types/cht/tx";
+import { MsgIBCCloseChannel } from "./types/cht/ibc";
+import { MsgExecuteContract } from "./types/cht/tx";
+import { MsgMigrateContract } from "./types/cht/tx";
+import { MsgIBCSend } from "./types/cht/ibc";
+import { MsgUpdateAdmin } from "./types/cht/tx";
+import { MsgClearAdmin } from "./types/cht/tx";
 
 
 const types = [
+  ["/ChronicNetwork.cht.cht.MsgStoreCode", MsgStoreCode],
+  ["/ChronicNetwork.cht.cht.MsgInstantiateContract", MsgInstantiateContract],
+  ["/ChronicNetwork.cht.cht.MsgIBCCloseChannel", MsgIBCCloseChannel],
+  ["/ChronicNetwork.cht.cht.MsgExecuteContract", MsgExecuteContract],
+  ["/ChronicNetwork.cht.cht.MsgMigrateContract", MsgMigrateContract],
+  ["/ChronicNetwork.cht.cht.MsgIBCSend", MsgIBCSend],
+  ["/ChronicNetwork.cht.cht.MsgUpdateAdmin", MsgUpdateAdmin],
+  ["/ChronicNetwork.cht.cht.MsgClearAdmin", MsgClearAdmin],
   
 ];
 export const MissingWalletError = new Error("wallet is required");
@@ -39,6 +55,14 @@ const txClient = async (wallet: OfflineSigner, { addr: addr }: TxClientOptions =
 
   return {
     signAndBroadcast: (msgs: EncodeObject[], { fee, memo }: SignAndBroadcastOptions = {fee: defaultFee, memo: ""}) => client.signAndBroadcast(address, msgs, fee,memo),
+    msgStoreCode: (data: MsgStoreCode): EncodeObject => ({ typeUrl: "/ChronicNetwork.cht.cht.MsgStoreCode", value: MsgStoreCode.fromPartial( data ) }),
+    msgInstantiateContract: (data: MsgInstantiateContract): EncodeObject => ({ typeUrl: "/ChronicNetwork.cht.cht.MsgInstantiateContract", value: MsgInstantiateContract.fromPartial( data ) }),
+    msgIBCCloseChannel: (data: MsgIBCCloseChannel): EncodeObject => ({ typeUrl: "/ChronicNetwork.cht.cht.MsgIBCCloseChannel", value: MsgIBCCloseChannel.fromPartial( data ) }),
+    msgExecuteContract: (data: MsgExecuteContract): EncodeObject => ({ typeUrl: "/ChronicNetwork.cht.cht.MsgExecuteContract", value: MsgExecuteContract.fromPartial( data ) }),
+    msgMigrateContract: (data: MsgMigrateContract): EncodeObject => ({ typeUrl: "/ChronicNetwork.cht.cht.MsgMigrateContract", value: MsgMigrateContract.fromPartial( data ) }),
+    msgIBCSend: (data: MsgIBCSend): EncodeObject => ({ typeUrl: "/ChronicNetwork.cht.cht.MsgIBCSend", value: MsgIBCSend.fromPartial( data ) }),
+    msgUpdateAdmin: (data: MsgUpdateAdmin): EncodeObject => ({ typeUrl: "/ChronicNetwork.cht.cht.MsgUpdateAdmin", value: MsgUpdateAdmin.fromPartial( data ) }),
+    msgClearAdmin: (data: MsgClearAdmin): EncodeObject => ({ typeUrl: "/ChronicNetwork.cht.cht.MsgClearAdmin", value: MsgClearAdmin.fromPartial( data ) }),
     
   };
 };
