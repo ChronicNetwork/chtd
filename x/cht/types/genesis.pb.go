@@ -387,11 +387,11 @@ func (m *Sequence) GetValue() uint64 {
 }
 
 func init() {
-	proto.RegisterType((*GenesisState)(nil), "ChronicNetwork.cht.cht.GenesisState")
-	proto.RegisterType((*GenesisState_GenMsgs)(nil), "ChronicNetwork.cht.cht.GenesisState.GenMsgs")
-	proto.RegisterType((*Code)(nil), "ChronicNetwork.cht.cht.Code")
-	proto.RegisterType((*Contract)(nil), "ChronicNetwork.cht.cht.Contract")
-	proto.RegisterType((*Sequence)(nil), "ChronicNetwork.cht.cht.Sequence")
+	proto.RegisterType((*GenesisState)(nil), "ChronicNetwork.chtd.cht.GenesisState")
+	proto.RegisterType((*GenesisState_GenMsgs)(nil), "ChronicNetwork.chtd.cht.GenesisState.GenMsgs")
+	proto.RegisterType((*Code)(nil), "ChronicNetwork.chtd.cht.Code")
+	proto.RegisterType((*Contract)(nil), "ChronicNetwork.chtd.cht.Contract")
+	proto.RegisterType((*Sequence)(nil), "ChronicNetwork.chtd.cht.Sequence")
 }
 
 func init() { proto.RegisterFile("cht/genesis.proto", fileDescriptor_1c50dac9f638fefb) }

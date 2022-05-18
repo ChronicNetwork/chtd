@@ -523,17 +523,17 @@ func (m *UpdateInstantiateConfigProposal) XXX_DiscardUnknown() {
 var xxx_messageInfo_UpdateInstantiateConfigProposal proto.InternalMessageInfo
 
 func init() {
-	proto.RegisterType((*StoreCodeProposal)(nil), "ChronicNetwork.cht.cht.StoreCodeProposal")
-	proto.RegisterType((*InstantiateContractProposal)(nil), "ChronicNetwork.cht.cht.InstantiateContractProposal")
-	proto.RegisterType((*MigrateContractProposal)(nil), "ChronicNetwork.cht.cht.MigrateContractProposal")
-	proto.RegisterType((*SudoContractProposal)(nil), "ChronicNetwork.cht.cht.SudoContractProposal")
-	proto.RegisterType((*ExecuteContractProposal)(nil), "ChronicNetwork.cht.cht.ExecuteContractProposal")
-	proto.RegisterType((*UpdateAdminProposal)(nil), "ChronicNetwork.cht.cht.UpdateAdminProposal")
-	proto.RegisterType((*ClearAdminProposal)(nil), "ChronicNetwork.cht.cht.ClearAdminProposal")
-	proto.RegisterType((*PinCodesProposal)(nil), "ChronicNetwork.cht.cht.PinCodesProposal")
-	proto.RegisterType((*UnpinCodesProposal)(nil), "ChronicNetwork.cht.cht.UnpinCodesProposal")
-	proto.RegisterType((*AccessConfigUpdate)(nil), "ChronicNetwork.cht.cht.AccessConfigUpdate")
-	proto.RegisterType((*UpdateInstantiateConfigProposal)(nil), "ChronicNetwork.cht.cht.UpdateInstantiateConfigProposal")
+	proto.RegisterType((*StoreCodeProposal)(nil), "ChronicNetwork.chtd.cht.StoreCodeProposal")
+	proto.RegisterType((*InstantiateContractProposal)(nil), "ChronicNetwork.chtd.cht.InstantiateContractProposal")
+	proto.RegisterType((*MigrateContractProposal)(nil), "ChronicNetwork.chtd.cht.MigrateContractProposal")
+	proto.RegisterType((*SudoContractProposal)(nil), "ChronicNetwork.chtd.cht.SudoContractProposal")
+	proto.RegisterType((*ExecuteContractProposal)(nil), "ChronicNetwork.chtd.cht.ExecuteContractProposal")
+	proto.RegisterType((*UpdateAdminProposal)(nil), "ChronicNetwork.chtd.cht.UpdateAdminProposal")
+	proto.RegisterType((*ClearAdminProposal)(nil), "ChronicNetwork.chtd.cht.ClearAdminProposal")
+	proto.RegisterType((*PinCodesProposal)(nil), "ChronicNetwork.chtd.cht.PinCodesProposal")
+	proto.RegisterType((*UnpinCodesProposal)(nil), "ChronicNetwork.chtd.cht.UnpinCodesProposal")
+	proto.RegisterType((*AccessConfigUpdate)(nil), "ChronicNetwork.chtd.cht.AccessConfigUpdate")
+	proto.RegisterType((*UpdateInstantiateConfigProposal)(nil), "ChronicNetwork.chtd.cht.UpdateInstantiateConfigProposal")
 }
 
 func init() { proto.RegisterFile("cht/proposal.proto", fileDescriptor_e5c33cd14ad85a37) }

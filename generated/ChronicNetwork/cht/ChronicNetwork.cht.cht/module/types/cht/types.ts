@@ -3,7 +3,7 @@ import * as Long from "long";
 import { util, configure, Writer, Reader } from "protobufjs/minimal";
 import { Any } from "../google/protobuf/any";
 
-export const protobufPackage = "ChronicNetwork.cht.cht";
+export const protobufPackage = "ChronicNetwork.chtd.cht";
 
 /** AccessType permission types */
 export enum AccessType {

@@ -32403,7 +32403,7 @@ paths:
       tags:
         - Query
 definitions:
-  ChronicNetwork.cht.cht.AbsoluteTxPosition:
+  ChronicNetwork.chtd.cht.AbsoluteTxPosition:
     type: object
     properties:
       block_height:
@@ -32421,7 +32421,7 @@ definitions:
     description: |-
       AbsoluteTxPosition is a unique transaction position that allows for global
       ordering of transactions.
-  ChronicNetwork.cht.cht.AccessConfig:
+  ChronicNetwork.chtd.cht.AccessConfig:
     type: object
     properties:
       permission:
@@ -32442,7 +32442,7 @@ definitions:
       address:
         type: string
     description: AccessConfig access control type.
-  ChronicNetwork.cht.cht.AccessType:
+  ChronicNetwork.chtd.cht.AccessType:
     type: string
     enum:
       - ACCESS_TYPE_UNSPECIFIED
@@ -32457,7 +32457,7 @@ definitions:
        - ACCESS_TYPE_ONLY_ADDRESS: AccessTypeOnlyAddress restricted to an address
        - ACCESS_TYPE_EVERYBODY: AccessTypeEverybody unrestricted
     title: AccessType permission types
-  ChronicNetwork.cht.cht.CodeInfoResponse:
+  ChronicNetwork.chtd.cht.CodeInfoResponse:
     type: object
     properties:
       code_id:
@@ -32490,7 +32490,7 @@ definitions:
             type: string
         description: AccessConfig access control type.
     title: CodeInfoResponse contains code meta data from CodeInfo
-  ChronicNetwork.cht.cht.ContractCodeHistoryEntry:
+  ChronicNetwork.chtd.cht.ContractCodeHistoryEntry:
     type: object
     properties:
       operation:
@@ -32533,7 +32533,7 @@ definitions:
         type: string
         format: byte
     description: ContractCodeHistoryEntry metadata to a contract.
-  ChronicNetwork.cht.cht.ContractCodeHistoryOperationType:
+  ChronicNetwork.chtd.cht.ContractCodeHistoryOperationType:
     type: string
     enum:
       - CONTRACT_CODE_HISTORY_OPERATION_TYPE_UNSPECIFIED
@@ -32548,7 +32548,7 @@ definitions:
        - CONTRACT_CODE_HISTORY_OPERATION_TYPE_MIGRATE: ContractCodeHistoryOperationTypeMigrate code migration
        - CONTRACT_CODE_HISTORY_OPERATION_TYPE_GENESIS: ContractCodeHistoryOperationTypeGenesis based on genesis data
     title: ContractCodeHistoryOperationType actions that caused a code change
-  ChronicNetwork.cht.cht.ContractInfo:
+  ChronicNetwork.chtd.cht.ContractInfo:
     type: object
     properties:
       code_id:
@@ -32751,7 +32751,7 @@ definitions:
                 "value": "1.212s"
               }
     title: ContractInfo stores a WASM contract instance
-  ChronicNetwork.cht.cht.Model:
+  ChronicNetwork.chtd.cht.Model:
     type: object
     properties:
       key:
@@ -32763,10 +32763,10 @@ definitions:
         format: byte
         title: base64-encode raw value
     title: Model is a struct that holds a KV pair
-  ChronicNetwork.cht.cht.MsgClearAdminResponse:
+  ChronicNetwork.chtd.cht.MsgClearAdminResponse:
     type: object
     title: MsgClearAdminResponse returns empty data
-  ChronicNetwork.cht.cht.MsgExecuteContractResponse:
+  ChronicNetwork.chtd.cht.MsgExecuteContractResponse:
     type: object
     properties:
       data:
@@ -32774,7 +32774,7 @@ definitions:
         format: byte
         title: Data contains base64-encoded bytes to returned from the contract
     description: MsgExecuteContractResponse returns execution result data.
-  ChronicNetwork.cht.cht.MsgInstantiateContractResponse:
+  ChronicNetwork.chtd.cht.MsgInstantiateContractResponse:
     type: object
     properties:
       address:
@@ -32785,7 +32785,7 @@ definitions:
         format: byte
         title: Data contains base64-encoded bytes to returned from the contract
     title: MsgInstantiateContractResponse return instantiation result data
-  ChronicNetwork.cht.cht.MsgMigrateContractResponse:
+  ChronicNetwork.chtd.cht.MsgMigrateContractResponse:
     type: object
     properties:
       data:
@@ -32795,7 +32795,7 @@ definitions:
           Data contains same raw bytes returned as data from the wasm contract.
           (May be empty)
     description: MsgMigrateContractResponse returns contract migration result data.
-  ChronicNetwork.cht.cht.MsgStoreCodeResponse:
+  ChronicNetwork.chtd.cht.MsgStoreCodeResponse:
     type: object
     properties:
       code_id:
@@ -32803,10 +32803,10 @@ definitions:
         format: uint64
         title: CodeID is the reference to the stored WASM code
     description: MsgStoreCodeResponse returns store result data.
-  ChronicNetwork.cht.cht.MsgUpdateAdminResponse:
+  ChronicNetwork.chtd.cht.MsgUpdateAdminResponse:
     type: object
     title: MsgUpdateAdminResponse returns empty data
-  ChronicNetwork.cht.cht.QueryAllContractStateResponse:
+  ChronicNetwork.chtd.cht.QueryAllContractStateResponse:
     type: object
     properties:
       models:
@@ -32844,7 +32844,7 @@ definitions:
     title: |-
       QueryAllContractStateResponse is the response type for the
       Query/AllContractState RPC method
-  ChronicNetwork.cht.cht.QueryCodeResponse:
+  ChronicNetwork.chtd.cht.QueryCodeResponse:
     type: object
     properties:
       code_info:
@@ -32884,7 +32884,7 @@ definitions:
         type: string
         format: byte
     title: QueryCodeResponse is the response type for the Query/Code RPC method
-  ChronicNetwork.cht.cht.QueryCodesResponse:
+  ChronicNetwork.chtd.cht.QueryCodesResponse:
     type: object
     properties:
       code_infos:
@@ -32941,7 +32941,7 @@ definitions:
 
               was set, its value is undefined otherwise
     title: QueryCodesResponse is the response type for the Query/Codes RPC method
-  ChronicNetwork.cht.cht.QueryContractHistoryResponse:
+  ChronicNetwork.chtd.cht.QueryContractHistoryResponse:
     type: object
     properties:
       entries:
@@ -33012,7 +33012,7 @@ definitions:
     title: |-
       QueryContractHistoryResponse is the response type for the
       Query/ContractHistory RPC method
-  ChronicNetwork.cht.cht.QueryContractInfoResponse:
+  ChronicNetwork.chtd.cht.QueryContractInfoResponse:
     type: object
     properties:
       address:
@@ -33232,7 +33232,7 @@ definitions:
       RPC
 
       method
-  ChronicNetwork.cht.cht.QueryContractsByCodeResponse:
+  ChronicNetwork.chtd.cht.QueryContractsByCodeResponse:
     type: object
     properties:
       contracts:
@@ -33261,7 +33261,7 @@ definitions:
     title: |-
       QueryContractsByCodeResponse is the response type for the
       Query/ContractsByCode RPC method
-  ChronicNetwork.cht.cht.QueryPinnedCodesResponse:
+  ChronicNetwork.chtd.cht.QueryPinnedCodesResponse:
     type: object
     properties:
       code_ids:
@@ -33290,7 +33290,7 @@ definitions:
     title: |-
       QueryPinnedCodesResponse is the response type for the
       Query/PinnedCodes RPC method
-  ChronicNetwork.cht.cht.QueryRawContractStateResponse:
+  ChronicNetwork.chtd.cht.QueryRawContractStateResponse:
     type: object
     properties:
       data:
@@ -33300,7 +33300,7 @@ definitions:
     title: |-
       QueryRawContractStateResponse is the response type for the
       Query/RawContractState RPC method
-  ChronicNetwork.cht.cht.QuerySmartContractStateResponse:
+  ChronicNetwork.chtd.cht.QuerySmartContractStateResponse:
     type: object
     properties:
       data:

@@ -532,18 +532,18 @@ func (m *MsgClearAdminResponse) XXX_DiscardUnknown() {
 var xxx_messageInfo_MsgClearAdminResponse proto.InternalMessageInfo
 
 func init() {
-	proto.RegisterType((*MsgStoreCode)(nil), "ChronicNetwork.cht.cht.MsgStoreCode")
-	proto.RegisterType((*MsgStoreCodeResponse)(nil), "ChronicNetwork.cht.cht.MsgStoreCodeResponse")
-	proto.RegisterType((*MsgInstantiateContract)(nil), "ChronicNetwork.cht.cht.MsgInstantiateContract")
-	proto.RegisterType((*MsgInstantiateContractResponse)(nil), "ChronicNetwork.cht.cht.MsgInstantiateContractResponse")
-	proto.RegisterType((*MsgExecuteContract)(nil), "ChronicNetwork.cht.cht.MsgExecuteContract")
-	proto.RegisterType((*MsgExecuteContractResponse)(nil), "ChronicNetwork.cht.cht.MsgExecuteContractResponse")
-	proto.RegisterType((*MsgMigrateContract)(nil), "ChronicNetwork.cht.cht.MsgMigrateContract")
-	proto.RegisterType((*MsgMigrateContractResponse)(nil), "ChronicNetwork.cht.cht.MsgMigrateContractResponse")
-	proto.RegisterType((*MsgUpdateAdmin)(nil), "ChronicNetwork.cht.cht.MsgUpdateAdmin")
-	proto.RegisterType((*MsgUpdateAdminResponse)(nil), "ChronicNetwork.cht.cht.MsgUpdateAdminResponse")
-	proto.RegisterType((*MsgClearAdmin)(nil), "ChronicNetwork.cht.cht.MsgClearAdmin")
-	proto.RegisterType((*MsgClearAdminResponse)(nil), "ChronicNetwork.cht.cht.MsgClearAdminResponse")
+	proto.RegisterType((*MsgStoreCode)(nil), "ChronicNetwork.chtd.cht.MsgStoreCode")
+	proto.RegisterType((*MsgStoreCodeResponse)(nil), "ChronicNetwork.chtd.cht.MsgStoreCodeResponse")
+	proto.RegisterType((*MsgInstantiateContract)(nil), "ChronicNetwork.chtd.cht.MsgInstantiateContract")
+	proto.RegisterType((*MsgInstantiateContractResponse)(nil), "ChronicNetwork.chtd.cht.MsgInstantiateContractResponse")
+	proto.RegisterType((*MsgExecuteContract)(nil), "ChronicNetwork.chtd.cht.MsgExecuteContract")
+	proto.RegisterType((*MsgExecuteContractResponse)(nil), "ChronicNetwork.chtd.cht.MsgExecuteContractResponse")
+	proto.RegisterType((*MsgMigrateContract)(nil), "ChronicNetwork.chtd.cht.MsgMigrateContract")
+	proto.RegisterType((*MsgMigrateContractResponse)(nil), "ChronicNetwork.chtd.cht.MsgMigrateContractResponse")
+	proto.RegisterType((*MsgUpdateAdmin)(nil), "ChronicNetwork.chtd.cht.MsgUpdateAdmin")
+	proto.RegisterType((*MsgUpdateAdminResponse)(nil), "ChronicNetwork.chtd.cht.MsgUpdateAdminResponse")
+	proto.RegisterType((*MsgClearAdmin)(nil), "ChronicNetwork.chtd.cht.MsgClearAdmin")
+	proto.RegisterType((*MsgClearAdminResponse)(nil), "ChronicNetwork.chtd.cht.MsgClearAdminResponse")
 }
 
 func init() { proto.RegisterFile("cht/tx.proto", fileDescriptor_3df22c47bfe879f4) }
@@ -636,7 +636,7 @@ func NewMsgClient(cc grpc1.ClientConn) MsgClient {
 
 func (c *msgClient) StoreCode(ctx context.Context, in *MsgStoreCode, opts ...grpc.CallOption) (*MsgStoreCodeResponse, error) {
 	out := new(MsgStoreCodeResponse)
-	err := c.cc.Invoke(ctx, "/ChronicNetwork.cht.cht.Msg/StoreCode", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/ChronicNetwork.chtd.cht.Msg/StoreCode", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -645,7 +645,7 @@ func (c *msgClient) StoreCode(ctx context.Context, in *MsgStoreCode, opts ...grp
 
 func (c *msgClient) InstantiateContract(ctx context.Context, in *MsgInstantiateContract, opts ...grpc.CallOption) (*MsgInstantiateContractResponse, error) {
 	out := new(MsgInstantiateContractResponse)
-	err := c.cc.Invoke(ctx, "/ChronicNetwork.cht.cht.Msg/InstantiateContract", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/ChronicNetwork.chtd.cht.Msg/InstantiateContract", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -654,7 +654,7 @@ func (c *msgClient) InstantiateContract(ctx context.Context, in *MsgInstantiateC
 
 func (c *msgClient) ExecuteContract(ctx context.Context, in *MsgExecuteContract, opts ...grpc.CallOption) (*MsgExecuteContractResponse, error) {
 	out := new(MsgExecuteContractResponse)
-	err := c.cc.Invoke(ctx, "/ChronicNetwork.cht.cht.Msg/ExecuteContract", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/ChronicNetwork.chtd.cht.Msg/ExecuteContract", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -663,7 +663,7 @@ func (c *msgClient) ExecuteContract(ctx context.Context, in *MsgExecuteContract,
 
 func (c *msgClient) MigrateContract(ctx context.Context, in *MsgMigrateContract, opts ...grpc.CallOption) (*MsgMigrateContractResponse, error) {
 	out := new(MsgMigrateContractResponse)
-	err := c.cc.Invoke(ctx, "/ChronicNetwork.cht.cht.Msg/MigrateContract", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/ChronicNetwork.chtd.cht.Msg/MigrateContract", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -672,7 +672,7 @@ func (c *msgClient) MigrateContract(ctx context.Context, in *MsgMigrateContract,
 
 func (c *msgClient) UpdateAdmin(ctx context.Context, in *MsgUpdateAdmin, opts ...grpc.CallOption) (*MsgUpdateAdminResponse, error) {
 	out := new(MsgUpdateAdminResponse)
-	err := c.cc.Invoke(ctx, "/ChronicNetwork.cht.cht.Msg/UpdateAdmin", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/ChronicNetwork.chtd.cht.Msg/UpdateAdmin", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -681,7 +681,7 @@ func (c *msgClient) UpdateAdmin(ctx context.Context, in *MsgUpdateAdmin, opts ..
 
 func (c *msgClient) ClearAdmin(ctx context.Context, in *MsgClearAdmin, opts ...grpc.CallOption) (*MsgClearAdminResponse, error) {
 	out := new(MsgClearAdminResponse)
-	err := c.cc.Invoke(ctx, "/ChronicNetwork.cht.cht.Msg/ClearAdmin", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/ChronicNetwork.chtd.cht.Msg/ClearAdmin", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -741,7 +741,7 @@ func _Msg_StoreCode_Handler(srv interface{}, ctx context.Context, dec func(inter
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/ChronicNetwork.cht.cht.Msg/StoreCode",
+		FullMethod: "/ChronicNetwork.chtd.cht.Msg/StoreCode",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(MsgServer).StoreCode(ctx, req.(*MsgStoreCode))
@@ -759,7 +759,7 @@ func _Msg_InstantiateContract_Handler(srv interface{}, ctx context.Context, dec 
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/ChronicNetwork.cht.cht.Msg/InstantiateContract",
+		FullMethod: "/ChronicNetwork.chtd.cht.Msg/InstantiateContract",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(MsgServer).InstantiateContract(ctx, req.(*MsgInstantiateContract))
@@ -777,7 +777,7 @@ func _Msg_ExecuteContract_Handler(srv interface{}, ctx context.Context, dec func
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/ChronicNetwork.cht.cht.Msg/ExecuteContract",
+		FullMethod: "/ChronicNetwork.chtd.cht.Msg/ExecuteContract",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(MsgServer).ExecuteContract(ctx, req.(*MsgExecuteContract))
@@ -795,7 +795,7 @@ func _Msg_MigrateContract_Handler(srv interface{}, ctx context.Context, dec func
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/ChronicNetwork.cht.cht.Msg/MigrateContract",
+		FullMethod: "/ChronicNetwork.chtd.cht.Msg/MigrateContract",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(MsgServer).MigrateContract(ctx, req.(*MsgMigrateContract))
@@ -813,7 +813,7 @@ func _Msg_UpdateAdmin_Handler(srv interface{}, ctx context.Context, dec func(int
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/ChronicNetwork.cht.cht.Msg/UpdateAdmin",
+		FullMethod: "/ChronicNetwork.chtd.cht.Msg/UpdateAdmin",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(MsgServer).UpdateAdmin(ctx, req.(*MsgUpdateAdmin))
@@ -831,7 +831,7 @@ func _Msg_ClearAdmin_Handler(srv interface{}, ctx context.Context, dec func(inte
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/ChronicNetwork.cht.cht.Msg/ClearAdmin",
+		FullMethod: "/ChronicNetwork.chtd.cht.Msg/ClearAdmin",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(MsgServer).ClearAdmin(ctx, req.(*MsgClearAdmin))
@@ -840,7 +840,7 @@ func _Msg_ClearAdmin_Handler(srv interface{}, ctx context.Context, dec func(inte
 }
 
 var _Msg_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "ChronicNetwork.cht.cht.Msg",
+	ServiceName: "ChronicNetwork.chtd.cht.Msg",
 	HandlerType: (*MsgServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{

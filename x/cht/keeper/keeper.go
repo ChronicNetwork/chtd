@@ -22,8 +22,8 @@ import (
 	paramtypes "github.com/cosmos/cosmos-sdk/x/params/types"
 	"github.com/tendermint/tendermint/libs/log"
 
-	"github.com/ChronicNetwork/cht/x/cht/ioutils"
-	"github.com/ChronicNetwork/cht/x/cht/types"
+	"github.com/ChronicNetwork/chtd/x/cht/ioutils"
+	"github.com/ChronicNetwork/chtd/x/cht/types"
 )
 
 // contractMemoryLimit is the memory limit of each contract execution (in MiB)

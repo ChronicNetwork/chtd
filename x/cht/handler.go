@@ -6,8 +6,8 @@ import (
 	"github.com/gogo/protobuf/proto"
 	abci "github.com/tendermint/tendermint/abci/types"
 
-	"github.com/ChronicNetwork/cht/x/cht/keeper"
-	"github.com/ChronicNetwork/cht/x/cht/types"
+	"github.com/ChronicNetwork/chtd/x/cht/keeper"
+	"github.com/ChronicNetwork/chtd/x/cht/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )

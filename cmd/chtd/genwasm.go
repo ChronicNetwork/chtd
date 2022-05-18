@@ -4,7 +4,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/spf13/cobra"
 
-	chtCli "github.com/ChronicNetwork/cht/x/cht/client/cli"
+	chtCli "github.com/ChronicNetwork/chtd/x/cht/client/cli"
 )
 
 func AddGenesisChtMsgCmd(defaultNodeHome string) *cobra.Command {

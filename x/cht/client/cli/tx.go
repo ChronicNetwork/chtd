@@ -14,8 +14,8 @@ import (
 	"github.com/spf13/cobra"
 	flag "github.com/spf13/pflag"
 
-	"github.com/ChronicNetwork/cht/x/cht/ioutils"
-	"github.com/ChronicNetwork/cht/x/cht/types"
+	"github.com/ChronicNetwork/chtd/x/cht/ioutils"
+	"github.com/ChronicNetwork/chtd/x/cht/types"
 )
 
 const (

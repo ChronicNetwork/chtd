@@ -1,11 +1,11 @@
 syntax = "proto3";
-package ChronicNetwork.cht.cht;
+package ChronicNetwork.chtd.cht;
 
 import "cosmos_proto/cosmos.proto";
 import "gogoproto/gogo.proto";
 import "google/protobuf/any.proto";
 
-option go_package = "github.com/ChronicNetwork/cht/x/cht/types";
+option go_package = "github.com/ChronicNetwork/chtd/x/cht/types";
 option (gogoproto.goproto_getters_all) = false;
 option (gogoproto.equal_all) = true;
 

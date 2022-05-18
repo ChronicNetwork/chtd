@@ -191,7 +191,7 @@ export default {
 	},
 	actions: {
 		init({ dispatch, rootGetters }) {
-			console.log('Vuex module: ChronicNetwork.cht.cht initialized!')
+			console.log('Vuex module: ChronicNetwork.chtd.cht initialized!')
 			if (rootGetters['common/env/client']) {
 				rootGetters['common/env/client'].on('newblock', () => {
 					dispatch('StoreUpdate')

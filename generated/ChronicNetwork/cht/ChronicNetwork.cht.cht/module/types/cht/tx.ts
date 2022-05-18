@@ -4,7 +4,7 @@ import * as Long from "long";
 import { AccessConfig } from "../cht/types";
 import { Coin } from "../cosmos/base/v1beta1/coin";
 
-export const protobufPackage = "ChronicNetwork.cht.cht";
+export const protobufPackage = "ChronicNetwork.chtd.cht";
 
 /** MsgStoreCode submit Wasm code to the system */
 export interface MsgStoreCode {
@@ -1163,7 +1163,7 @@ export class MsgClientImpl implements Msg {
   StoreCode(request: MsgStoreCode): Promise<MsgStoreCodeResponse> {
     const data = MsgStoreCode.encode(request).finish();
     const promise = this.rpc.request(
-      "ChronicNetwork.cht.cht.Msg",
+      "ChronicNetwork.chtd.cht.Msg",
       "StoreCode",
       data
     );
@@ -1177,7 +1177,7 @@ export class MsgClientImpl implements Msg {
   ): Promise<MsgInstantiateContractResponse> {
     const data = MsgInstantiateContract.encode(request).finish();
     const promise = this.rpc.request(
-      "ChronicNetwork.cht.cht.Msg",
+      "ChronicNetwork.chtd.cht.Msg",
       "InstantiateContract",
       data
     );
@@ -1191,7 +1191,7 @@ export class MsgClientImpl implements Msg {
   ): Promise<MsgExecuteContractResponse> {
     const data = MsgExecuteContract.encode(request).finish();
     const promise = this.rpc.request(
-      "ChronicNetwork.cht.cht.Msg",
+      "ChronicNetwork.chtd.cht.Msg",
       "ExecuteContract",
       data
     );
@@ -1205,7 +1205,7 @@ export class MsgClientImpl implements Msg {
   ): Promise<MsgMigrateContractResponse> {
     const data = MsgMigrateContract.encode(request).finish();
     const promise = this.rpc.request(
-      "ChronicNetwork.cht.cht.Msg",
+      "ChronicNetwork.chtd.cht.Msg",
       "MigrateContract",
       data
     );
@@ -1217,7 +1217,7 @@ export class MsgClientImpl implements Msg {
   UpdateAdmin(request: MsgUpdateAdmin): Promise<MsgUpdateAdminResponse> {
     const data = MsgUpdateAdmin.encode(request).finish();
     const promise = this.rpc.request(
-      "ChronicNetwork.cht.cht.Msg",
+      "ChronicNetwork.chtd.cht.Msg",
       "UpdateAdmin",
       data
     );
@@ -1229,7 +1229,7 @@ export class MsgClientImpl implements Msg {
   ClearAdmin(request: MsgClearAdmin): Promise<MsgClearAdminResponse> {
     const data = MsgClearAdmin.encode(request).finish();
     const promise = this.rpc.request(
-      "ChronicNetwork.cht.cht.Msg",
+      "ChronicNetwork.chtd.cht.Msg",
       "ClearAdmin",
       data
     );

@@ -8,7 +8,7 @@ import {
   MsgExecuteContract,
 } from "../cht/tx";
 
-export const protobufPackage = "ChronicNetwork.cht.cht";
+export const protobufPackage = "ChronicNetwork.chtd.cht";
 
 /** GenesisState defines the cht module's genesis state. */
 export interface GenesisState {

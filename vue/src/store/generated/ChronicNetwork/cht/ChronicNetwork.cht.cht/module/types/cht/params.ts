@@ -1,7 +1,7 @@
 /* eslint-disable */
 import { Writer, Reader } from "protobufjs/minimal";
 
-export const protobufPackage = "ChronicNetwork.cht.cht";
+export const protobufPackage = "ChronicNetwork.chtd.cht";
 
 /** Params defines the parameters for the module. */
 export interface Params {}

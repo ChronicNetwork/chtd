@@ -8,7 +8,7 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/ChronicNetwork/cht/x/cht/keeper"
+	"github.com/ChronicNetwork/chtd/x/cht/keeper"
 
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
@@ -22,7 +22,7 @@ import (
 	"github.com/spf13/cobra"
 	tmtypes "github.com/tendermint/tendermint/types"
 
-	"github.com/ChronicNetwork/cht/x/cht/types"
+	"github.com/ChronicNetwork/chtd/x/cht/types"
 )
 
 // GenesisReader reads genesis data. Extension point for custom genesis state readers.

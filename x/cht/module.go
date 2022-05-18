@@ -20,11 +20,11 @@ import (
 	"github.com/spf13/cobra"
 	abci "github.com/tendermint/tendermint/abci/types"
 
-	"github.com/ChronicNetwork/cht/x/cht/client/cli"
-	"github.com/ChronicNetwork/cht/x/cht/client/rest"
-	"github.com/ChronicNetwork/cht/x/cht/keeper"
-	"github.com/ChronicNetwork/cht/x/cht/simulation"
-	"github.com/ChronicNetwork/cht/x/cht/types"
+	"github.com/ChronicNetwork/chtd/x/cht/client/cli"
+	"github.com/ChronicNetwork/chtd/x/cht/client/rest"
+	"github.com/ChronicNetwork/chtd/x/cht/keeper"
+	"github.com/ChronicNetwork/chtd/x/cht/simulation"
+	"github.com/ChronicNetwork/chtd/x/cht/types"
 )
 
 var (

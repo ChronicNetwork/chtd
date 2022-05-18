@@ -5,7 +5,7 @@ import (
 
 	svrcmd "github.com/cosmos/cosmos-sdk/server/cmd"
 
-	"github.com/ChronicNetwork/cht/app"
+	"github.com/ChronicNetwork/chtd/app"
 )
 
 func main() {

@@ -8,7 +8,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	chtkeeper "github.com/ChronicNetwork/cht/x/cht/keeper"
+	chtkeeper "github.com/ChronicNetwork/chtd/x/cht/keeper"
 
 	"github.com/cosmos/cosmos-sdk/baseapp"
 	"github.com/cosmos/cosmos-sdk/client"
@@ -107,9 +107,9 @@ import (
 	tmproto "github.com/tendermint/tendermint/proto/tendermint/types"
 	dbm "github.com/tendermint/tm-db"
 
-	chtappparams "github.com/ChronicNetwork/cht/app/params"
-	"github.com/ChronicNetwork/cht/x/cht"
-	chtclient "github.com/ChronicNetwork/cht/x/cht/client"
+	chtappparams "github.com/ChronicNetwork/chtd/app/params"
+	"github.com/ChronicNetwork/chtd/x/cht"
+	chtclient "github.com/ChronicNetwork/chtd/x/cht/client"
 
 	// unnamed import of statik for swagger UI support
 	_ "github.com/cosmos/cosmos-sdk/client/docs/statik"
@@ -119,8 +119,8 @@ const appName = "ChronicApp"
 
 // We pull these out so we can set them with LDFLAGS in the Makefile
 var (
-	NodeDir      = ".chtd"
-	Bech32Prefix = "cht"
+	NodeDir      = ".cht"
+	Bech32Prefix = "chronic"
 
 	// If EnabledSpecificProposals is "", and this is "true", then enable all x/cht proposals.
 	// If EnabledSpecificProposals is "", and this is not "true", then disable all x/cht proposals.

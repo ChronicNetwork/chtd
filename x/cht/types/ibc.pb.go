@@ -110,8 +110,8 @@ func (m *MsgIBCCloseChannel) XXX_DiscardUnknown() {
 var xxx_messageInfo_MsgIBCCloseChannel proto.InternalMessageInfo
 
 func init() {
-	proto.RegisterType((*MsgIBCSend)(nil), "ChronicNetwork.cht.cht.MsgIBCSend")
-	proto.RegisterType((*MsgIBCCloseChannel)(nil), "ChronicNetwork.cht.cht.MsgIBCCloseChannel")
+	proto.RegisterType((*MsgIBCSend)(nil), "ChronicNetwork.chtd.cht.MsgIBCSend")
+	proto.RegisterType((*MsgIBCCloseChannel)(nil), "ChronicNetwork.chtd.cht.MsgIBCCloseChannel")
 }
 
 func init() { proto.RegisterFile("cht/ibc.proto", fileDescriptor_92b4188d614d1482) }

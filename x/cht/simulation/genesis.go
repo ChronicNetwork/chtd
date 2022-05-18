@@ -3,7 +3,7 @@ package simulation
 import (
 	"github.com/cosmos/cosmos-sdk/types/module"
 
-	"github.com/ChronicNetwork/cht/x/cht/types"
+	"github.com/ChronicNetwork/chtd/x/cht/types"
 )
 
 // RandomizeGenState generates a random GenesisState for cht

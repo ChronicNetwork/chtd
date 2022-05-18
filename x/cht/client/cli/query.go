@@ -18,7 +18,7 @@ import (
 
 	wasmvmapi "github.com/CosmWasm/wasmvm/api"
 
-	"github.com/ChronicNetwork/cht/x/cht/types"
+	"github.com/ChronicNetwork/chtd/x/cht/types"
 )
 
 func GetQueryCmd() *cobra.Command {

@@ -11,8 +11,8 @@ import (
 	simtypes "github.com/cosmos/cosmos-sdk/types/simulation"
 	"github.com/cosmos/cosmos-sdk/x/simulation"
 
-	"github.com/ChronicNetwork/cht/app/params"
-	"github.com/ChronicNetwork/cht/x/cht/types"
+	"github.com/ChronicNetwork/chtd/app/params"
+	"github.com/ChronicNetwork/chtd/x/cht/types"
 )
 
 // Simulation operation weights constants

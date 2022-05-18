@@ -11,7 +11,7 @@ import (
 	govrest "github.com/cosmos/cosmos-sdk/x/gov/client/rest"
 	govtypes "github.com/cosmos/cosmos-sdk/x/gov/types"
 
-	"github.com/ChronicNetwork/cht/x/cht/types"
+	"github.com/ChronicNetwork/chtd/x/cht/types"
 )
 
 type StoreCodeProposalJSONReq struct {

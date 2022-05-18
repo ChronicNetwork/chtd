@@ -8,7 +8,7 @@ import (
 	capabilitytypes "github.com/cosmos/cosmos-sdk/x/capability/types"
 	host "github.com/cosmos/ibc-go/v3/modules/core/24-host"
 
-	"github.com/ChronicNetwork/cht/x/cht/types"
+	"github.com/ChronicNetwork/chtd/x/cht/types"
 )
 
 // bindIbcPort will reserve the port.

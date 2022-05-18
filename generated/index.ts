@@ -1,12 +1,12 @@
 // THIS FILE IS GENERATED AUTOMATICALLY. DO NOT MODIFY.
 
-import ChronicNetworkChtChronicNetworkChtCht from './ChronicNetwork/cht/ChronicNetwork.cht.cht'
-import ChronicNetworkChtdChronicNetworkChtCht from './ChronicNetwork/chtd/ChronicNetwork.cht.cht'
+import ChronicNetworkChtChronicNetworkChtCht from './ChronicNetwork/chtd/ChronicNetwork.chtd.cht'
+import ChronicNetworkChtdChronicNetworkChtCht from './ChronicNetwork/chtd/ChronicNetwork.chtd.cht'
 
 
 export default { 
-  ChronicNetworkChtChronicNetworkChtCht: load(ChronicNetworkChtChronicNetworkChtCht, 'ChronicNetwork.cht.cht'),
-  ChronicNetworkChtdChronicNetworkChtCht: load(ChronicNetworkChtdChronicNetworkChtCht, 'ChronicNetwork.cht.cht'),
+  ChronicNetworkChtChronicNetworkChtCht: load(ChronicNetworkChtChronicNetworkChtCht, 'ChronicNetwork.chtd.cht'),
+  ChronicNetworkChtdChronicNetworkChtCht: load(ChronicNetworkChtdChronicNetworkChtCht, 'ChronicNetwork.chtd.cht'),
   
 }
 

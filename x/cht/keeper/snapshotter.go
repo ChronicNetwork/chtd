@@ -11,8 +11,8 @@ import (
 	"github.com/tendermint/tendermint/libs/log"
 	tmproto "github.com/tendermint/tendermint/proto/tendermint/types"
 
-	"github.com/ChronicNetwork/cht/x/cht/ioutils"
-	"github.com/ChronicNetwork/cht/x/cht/types"
+	"github.com/ChronicNetwork/chtd/x/cht/ioutils"
+	"github.com/ChronicNetwork/chtd/x/cht/types"
 )
 
 var _ snapshot.ExtensionSnapshotter = &ChtSnapshotter{}

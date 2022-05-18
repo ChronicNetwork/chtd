@@ -3,8 +3,8 @@ package client
 import (
 	govclient "github.com/cosmos/cosmos-sdk/x/gov/client"
 
-	"github.com/ChronicNetwork/cht/x/cht/client/cli"
-	"github.com/ChronicNetwork/cht/x/cht/client/rest"
+	"github.com/ChronicNetwork/chtd/x/cht/client/cli"
+	"github.com/ChronicNetwork/chtd/x/cht/client/rest"
 )
 
 // ProposalHandlers define the cht cli proposal types and rest handler.

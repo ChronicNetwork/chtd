@@ -804,25 +804,25 @@ func (m *QueryPinnedCodesResponse) XXX_DiscardUnknown() {
 var xxx_messageInfo_QueryPinnedCodesResponse proto.InternalMessageInfo
 
 func init() {
-	proto.RegisterType((*QueryContractInfoRequest)(nil), "ChronicNetwork.cht.cht.QueryContractInfoRequest")
-	proto.RegisterType((*QueryContractInfoResponse)(nil), "ChronicNetwork.cht.cht.QueryContractInfoResponse")
-	proto.RegisterType((*QueryContractHistoryRequest)(nil), "ChronicNetwork.cht.cht.QueryContractHistoryRequest")
-	proto.RegisterType((*QueryContractHistoryResponse)(nil), "ChronicNetwork.cht.cht.QueryContractHistoryResponse")
-	proto.RegisterType((*QueryContractsByCodeRequest)(nil), "ChronicNetwork.cht.cht.QueryContractsByCodeRequest")
-	proto.RegisterType((*QueryContractsByCodeResponse)(nil), "ChronicNetwork.cht.cht.QueryContractsByCodeResponse")
-	proto.RegisterType((*QueryAllContractStateRequest)(nil), "ChronicNetwork.cht.cht.QueryAllContractStateRequest")
-	proto.RegisterType((*QueryAllContractStateResponse)(nil), "ChronicNetwork.cht.cht.QueryAllContractStateResponse")
-	proto.RegisterType((*QueryRawContractStateRequest)(nil), "ChronicNetwork.cht.cht.QueryRawContractStateRequest")
-	proto.RegisterType((*QueryRawContractStateResponse)(nil), "ChronicNetwork.cht.cht.QueryRawContractStateResponse")
-	proto.RegisterType((*QuerySmartContractStateRequest)(nil), "ChronicNetwork.cht.cht.QuerySmartContractStateRequest")
-	proto.RegisterType((*QuerySmartContractStateResponse)(nil), "ChronicNetwork.cht.cht.QuerySmartContractStateResponse")
-	proto.RegisterType((*QueryCodeRequest)(nil), "ChronicNetwork.cht.cht.QueryCodeRequest")
-	proto.RegisterType((*CodeInfoResponse)(nil), "ChronicNetwork.cht.cht.CodeInfoResponse")
-	proto.RegisterType((*QueryCodeResponse)(nil), "ChronicNetwork.cht.cht.QueryCodeResponse")
-	proto.RegisterType((*QueryCodesRequest)(nil), "ChronicNetwork.cht.cht.QueryCodesRequest")
-	proto.RegisterType((*QueryCodesResponse)(nil), "ChronicNetwork.cht.cht.QueryCodesResponse")
-	proto.RegisterType((*QueryPinnedCodesRequest)(nil), "ChronicNetwork.cht.cht.QueryPinnedCodesRequest")
-	proto.RegisterType((*QueryPinnedCodesResponse)(nil), "ChronicNetwork.cht.cht.QueryPinnedCodesResponse")
+	proto.RegisterType((*QueryContractInfoRequest)(nil), "ChronicNetwork.chtd.cht.QueryContractInfoRequest")
+	proto.RegisterType((*QueryContractInfoResponse)(nil), "ChronicNetwork.chtd.cht.QueryContractInfoResponse")
+	proto.RegisterType((*QueryContractHistoryRequest)(nil), "ChronicNetwork.chtd.cht.QueryContractHistoryRequest")
+	proto.RegisterType((*QueryContractHistoryResponse)(nil), "ChronicNetwork.chtd.cht.QueryContractHistoryResponse")
+	proto.RegisterType((*QueryContractsByCodeRequest)(nil), "ChronicNetwork.chtd.cht.QueryContractsByCodeRequest")
+	proto.RegisterType((*QueryContractsByCodeResponse)(nil), "ChronicNetwork.chtd.cht.QueryContractsByCodeResponse")
+	proto.RegisterType((*QueryAllContractStateRequest)(nil), "ChronicNetwork.chtd.cht.QueryAllContractStateRequest")
+	proto.RegisterType((*QueryAllContractStateResponse)(nil), "ChronicNetwork.chtd.cht.QueryAllContractStateResponse")
+	proto.RegisterType((*QueryRawContractStateRequest)(nil), "ChronicNetwork.chtd.cht.QueryRawContractStateRequest")
+	proto.RegisterType((*QueryRawContractStateResponse)(nil), "ChronicNetwork.chtd.cht.QueryRawContractStateResponse")
+	proto.RegisterType((*QuerySmartContractStateRequest)(nil), "ChronicNetwork.chtd.cht.QuerySmartContractStateRequest")
+	proto.RegisterType((*QuerySmartContractStateResponse)(nil), "ChronicNetwork.chtd.cht.QuerySmartContractStateResponse")
+	proto.RegisterType((*QueryCodeRequest)(nil), "ChronicNetwork.chtd.cht.QueryCodeRequest")
+	proto.RegisterType((*CodeInfoResponse)(nil), "ChronicNetwork.chtd.cht.CodeInfoResponse")
+	proto.RegisterType((*QueryCodeResponse)(nil), "ChronicNetwork.chtd.cht.QueryCodeResponse")
+	proto.RegisterType((*QueryCodesRequest)(nil), "ChronicNetwork.chtd.cht.QueryCodesRequest")
+	proto.RegisterType((*QueryCodesResponse)(nil), "ChronicNetwork.chtd.cht.QueryCodesResponse")
+	proto.RegisterType((*QueryPinnedCodesRequest)(nil), "ChronicNetwork.chtd.cht.QueryPinnedCodesRequest")
+	proto.RegisterType((*QueryPinnedCodesResponse)(nil), "ChronicNetwork.chtd.cht.QueryPinnedCodesResponse")
 }
 
 func init() { proto.RegisterFile("cht/query.proto", fileDescriptor_4c5f0584966abfee) }
@@ -1037,7 +1037,7 @@ func NewQueryClient(cc grpc1.ClientConn) QueryClient {
 
 func (c *queryClient) ContractInfo(ctx context.Context, in *QueryContractInfoRequest, opts ...grpc.CallOption) (*QueryContractInfoResponse, error) {
 	out := new(QueryContractInfoResponse)
-	err := c.cc.Invoke(ctx, "/ChronicNetwork.cht.cht.Query/ContractInfo", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/ChronicNetwork.chtd.cht.Query/ContractInfo", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -1046,7 +1046,7 @@ func (c *queryClient) ContractInfo(ctx context.Context, in *QueryContractInfoReq
 
 func (c *queryClient) ContractHistory(ctx context.Context, in *QueryContractHistoryRequest, opts ...grpc.CallOption) (*QueryContractHistoryResponse, error) {
 	out := new(QueryContractHistoryResponse)
-	err := c.cc.Invoke(ctx, "/ChronicNetwork.cht.cht.Query/ContractHistory", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/ChronicNetwork.chtd.cht.Query/ContractHistory", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -1055,7 +1055,7 @@ func (c *queryClient) ContractHistory(ctx context.Context, in *QueryContractHist
 
 func (c *queryClient) ContractsByCode(ctx context.Context, in *QueryContractsByCodeRequest, opts ...grpc.CallOption) (*QueryContractsByCodeResponse, error) {
 	out := new(QueryContractsByCodeResponse)
-	err := c.cc.Invoke(ctx, "/ChronicNetwork.cht.cht.Query/ContractsByCode", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/ChronicNetwork.chtd.cht.Query/ContractsByCode", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -1064,7 +1064,7 @@ func (c *queryClient) ContractsByCode(ctx context.Context, in *QueryContractsByC
 
 func (c *queryClient) AllContractState(ctx context.Context, in *QueryAllContractStateRequest, opts ...grpc.CallOption) (*QueryAllContractStateResponse, error) {
 	out := new(QueryAllContractStateResponse)
-	err := c.cc.Invoke(ctx, "/ChronicNetwork.cht.cht.Query/AllContractState", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/ChronicNetwork.chtd.cht.Query/AllContractState", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -1073,7 +1073,7 @@ func (c *queryClient) AllContractState(ctx context.Context, in *QueryAllContract
 
 func (c *queryClient) RawContractState(ctx context.Context, in *QueryRawContractStateRequest, opts ...grpc.CallOption) (*QueryRawContractStateResponse, error) {
 	out := new(QueryRawContractStateResponse)
-	err := c.cc.Invoke(ctx, "/ChronicNetwork.cht.cht.Query/RawContractState", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/ChronicNetwork.chtd.cht.Query/RawContractState", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -1082,7 +1082,7 @@ func (c *queryClient) RawContractState(ctx context.Context, in *QueryRawContract
 
 func (c *queryClient) SmartContractState(ctx context.Context, in *QuerySmartContractStateRequest, opts ...grpc.CallOption) (*QuerySmartContractStateResponse, error) {
 	out := new(QuerySmartContractStateResponse)
-	err := c.cc.Invoke(ctx, "/ChronicNetwork.cht.cht.Query/SmartContractState", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/ChronicNetwork.chtd.cht.Query/SmartContractState", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -1091,7 +1091,7 @@ func (c *queryClient) SmartContractState(ctx context.Context, in *QuerySmartCont
 
 func (c *queryClient) Code(ctx context.Context, in *QueryCodeRequest, opts ...grpc.CallOption) (*QueryCodeResponse, error) {
 	out := new(QueryCodeResponse)
-	err := c.cc.Invoke(ctx, "/ChronicNetwork.cht.cht.Query/Code", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/ChronicNetwork.chtd.cht.Query/Code", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -1100,7 +1100,7 @@ func (c *queryClient) Code(ctx context.Context, in *QueryCodeRequest, opts ...gr
 
 func (c *queryClient) Codes(ctx context.Context, in *QueryCodesRequest, opts ...grpc.CallOption) (*QueryCodesResponse, error) {
 	out := new(QueryCodesResponse)
-	err := c.cc.Invoke(ctx, "/ChronicNetwork.cht.cht.Query/Codes", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/ChronicNetwork.chtd.cht.Query/Codes", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -1109,7 +1109,7 @@ func (c *queryClient) Codes(ctx context.Context, in *QueryCodesRequest, opts ...
 
 func (c *queryClient) PinnedCodes(ctx context.Context, in *QueryPinnedCodesRequest, opts ...grpc.CallOption) (*QueryPinnedCodesResponse, error) {
 	out := new(QueryPinnedCodesResponse)
-	err := c.cc.Invoke(ctx, "/ChronicNetwork.cht.cht.Query/PinnedCodes", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/ChronicNetwork.chtd.cht.Query/PinnedCodes", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -1184,7 +1184,7 @@ func _Query_ContractInfo_Handler(srv interface{}, ctx context.Context, dec func(
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/ChronicNetwork.cht.cht.Query/ContractInfo",
+		FullMethod: "/ChronicNetwork.chtd.cht.Query/ContractInfo",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(QueryServer).ContractInfo(ctx, req.(*QueryContractInfoRequest))
@@ -1202,7 +1202,7 @@ func _Query_ContractHistory_Handler(srv interface{}, ctx context.Context, dec fu
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/ChronicNetwork.cht.cht.Query/ContractHistory",
+		FullMethod: "/ChronicNetwork.chtd.cht.Query/ContractHistory",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(QueryServer).ContractHistory(ctx, req.(*QueryContractHistoryRequest))
@@ -1220,7 +1220,7 @@ func _Query_ContractsByCode_Handler(srv interface{}, ctx context.Context, dec fu
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/ChronicNetwork.cht.cht.Query/ContractsByCode",
+		FullMethod: "/ChronicNetwork.chtd.cht.Query/ContractsByCode",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(QueryServer).ContractsByCode(ctx, req.(*QueryContractsByCodeRequest))
@@ -1238,7 +1238,7 @@ func _Query_AllContractState_Handler(srv interface{}, ctx context.Context, dec f
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/ChronicNetwork.cht.cht.Query/AllContractState",
+		FullMethod: "/ChronicNetwork.chtd.cht.Query/AllContractState",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(QueryServer).AllContractState(ctx, req.(*QueryAllContractStateRequest))
@@ -1256,7 +1256,7 @@ func _Query_RawContractState_Handler(srv interface{}, ctx context.Context, dec f
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/ChronicNetwork.cht.cht.Query/RawContractState",
+		FullMethod: "/ChronicNetwork.chtd.cht.Query/RawContractState",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(QueryServer).RawContractState(ctx, req.(*QueryRawContractStateRequest))
@@ -1274,7 +1274,7 @@ func _Query_SmartContractState_Handler(srv interface{}, ctx context.Context, dec
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/ChronicNetwork.cht.cht.Query/SmartContractState",
+		FullMethod: "/ChronicNetwork.chtd.cht.Query/SmartContractState",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(QueryServer).SmartContractState(ctx, req.(*QuerySmartContractStateRequest))
@@ -1292,7 +1292,7 @@ func _Query_Code_Handler(srv interface{}, ctx context.Context, dec func(interfac
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/ChronicNetwork.cht.cht.Query/Code",
+		FullMethod: "/ChronicNetwork.chtd.cht.Query/Code",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(QueryServer).Code(ctx, req.(*QueryCodeRequest))
@@ -1310,7 +1310,7 @@ func _Query_Codes_Handler(srv interface{}, ctx context.Context, dec func(interfa
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/ChronicNetwork.cht.cht.Query/Codes",
+		FullMethod: "/ChronicNetwork.chtd.cht.Query/Codes",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(QueryServer).Codes(ctx, req.(*QueryCodesRequest))
@@ -1328,7 +1328,7 @@ func _Query_PinnedCodes_Handler(srv interface{}, ctx context.Context, dec func(i
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/ChronicNetwork.cht.cht.Query/PinnedCodes",
+		FullMethod: "/ChronicNetwork.chtd.cht.Query/PinnedCodes",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(QueryServer).PinnedCodes(ctx, req.(*QueryPinnedCodesRequest))
@@ -1337,7 +1337,7 @@ func _Query_PinnedCodes_Handler(srv interface{}, ctx context.Context, dec func(i
 }
 
 var _Query_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "ChronicNetwork.cht.cht.Query",
+	ServiceName: "ChronicNetwork.chtd.cht.Query",
 	HandlerType: (*QueryServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{

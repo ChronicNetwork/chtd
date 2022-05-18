@@ -4,7 +4,7 @@ import { util, configure, Writer, Reader } from "protobufjs/minimal";
 import { AccessConfig } from "../cht/types";
 import { Coin } from "../cosmos/base/v1beta1/coin";
 
-export const protobufPackage = "ChronicNetwork.cht.cht";
+export const protobufPackage = "ChronicNetwork.chtd.cht";
 
 /** StoreCodeProposal gov proposal content type to submit WASM code to the system */
 export interface StoreCodeProposal {

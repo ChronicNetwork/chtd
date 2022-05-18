@@ -31,11 +31,11 @@ import (
 	"github.com/tendermint/tendermint/libs/log"
 	dbm "github.com/tendermint/tm-db"
 
-	"github.com/ChronicNetwork/cht/app"
-	"github.com/ChronicNetwork/cht/app/params"
-	"github.com/ChronicNetwork/cht/x/cht"
-	chtKeeper "github.com/ChronicNetwork/cht/x/cht/keeper"
-	chtTypes "github.com/ChronicNetwork/cht/x/cht/types"
+	"github.com/ChronicNetwork/chtd/app"
+	"github.com/ChronicNetwork/chtd/app/params"
+	"github.com/ChronicNetwork/chtd/x/cht"
+	chtKeeper "github.com/ChronicNetwork/chtd/x/cht/keeper"
+	chtTypes "github.com/ChronicNetwork/chtd/x/cht/types"
 )
 
 // NewRootCmd creates a new root command for chtd. It is called once in the

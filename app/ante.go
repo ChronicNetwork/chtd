@@ -7,8 +7,8 @@ import (
 	ibcante "github.com/cosmos/ibc-go/v3/modules/core/ante"
 	"github.com/cosmos/ibc-go/v3/modules/core/keeper"
 
-	chtkeeper "github.com/ChronicNetwork/cht/x/cht/keeper"
-	chtTypes "github.com/ChronicNetwork/cht/x/cht/types"
+	chtkeeper "github.com/ChronicNetwork/chtd/x/cht/keeper"
+	chtTypes "github.com/ChronicNetwork/chtd/x/cht/types"
 )
 
 // HandlerOptions extend the SDK's AnteHandler options by requiring the IBC

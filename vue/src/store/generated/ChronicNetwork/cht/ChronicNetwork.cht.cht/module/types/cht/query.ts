@@ -12,7 +12,7 @@ import {
   PageResponse,
 } from "../cosmos/base/query/v1beta1/pagination";
 
-export const protobufPackage = "ChronicNetwork.cht.cht";
+export const protobufPackage = "ChronicNetwork.chtd.cht";
 
 /**
  * QueryContractInfoRequest is the request type for the Query/ContractInfo RPC
@@ -1865,7 +1865,7 @@ export class QueryClientImpl implements Query {
   ): Promise<QueryContractInfoResponse> {
     const data = QueryContractInfoRequest.encode(request).finish();
     const promise = this.rpc.request(
-      "ChronicNetwork.cht.cht.Query",
+      "ChronicNetwork.chtd.cht.Query",
       "ContractInfo",
       data
     );
@@ -1879,7 +1879,7 @@ export class QueryClientImpl implements Query {
   ): Promise<QueryContractHistoryResponse> {
     const data = QueryContractHistoryRequest.encode(request).finish();
     const promise = this.rpc.request(
-      "ChronicNetwork.cht.cht.Query",
+      "ChronicNetwork.chtd.cht.Query",
       "ContractHistory",
       data
     );
@@ -1893,7 +1893,7 @@ export class QueryClientImpl implements Query {
   ): Promise<QueryContractsByCodeResponse> {
     const data = QueryContractsByCodeRequest.encode(request).finish();
     const promise = this.rpc.request(
-      "ChronicNetwork.cht.cht.Query",
+      "ChronicNetwork.chtd.cht.Query",
       "ContractsByCode",
       data
     );
@@ -1907,7 +1907,7 @@ export class QueryClientImpl implements Query {
   ): Promise<QueryAllContractStateResponse> {
     const data = QueryAllContractStateRequest.encode(request).finish();
     const promise = this.rpc.request(
-      "ChronicNetwork.cht.cht.Query",
+      "ChronicNetwork.chtd.cht.Query",
       "AllContractState",
       data
     );
@@ -1921,7 +1921,7 @@ export class QueryClientImpl implements Query {
   ): Promise<QueryRawContractStateResponse> {
     const data = QueryRawContractStateRequest.encode(request).finish();
     const promise = this.rpc.request(
-      "ChronicNetwork.cht.cht.Query",
+      "ChronicNetwork.chtd.cht.Query",
       "RawContractState",
       data
     );
@@ -1935,7 +1935,7 @@ export class QueryClientImpl implements Query {
   ): Promise<QuerySmartContractStateResponse> {
     const data = QuerySmartContractStateRequest.encode(request).finish();
     const promise = this.rpc.request(
-      "ChronicNetwork.cht.cht.Query",
+      "ChronicNetwork.chtd.cht.Query",
       "SmartContractState",
       data
     );
@@ -1947,7 +1947,7 @@ export class QueryClientImpl implements Query {
   Code(request: QueryCodeRequest): Promise<QueryCodeResponse> {
     const data = QueryCodeRequest.encode(request).finish();
     const promise = this.rpc.request(
-      "ChronicNetwork.cht.cht.Query",
+      "ChronicNetwork.chtd.cht.Query",
       "Code",
       data
     );
@@ -1957,7 +1957,7 @@ export class QueryClientImpl implements Query {
   Codes(request: QueryCodesRequest): Promise<QueryCodesResponse> {
     const data = QueryCodesRequest.encode(request).finish();
     const promise = this.rpc.request(
-      "ChronicNetwork.cht.cht.Query",
+      "ChronicNetwork.chtd.cht.Query",
       "Codes",
       data
     );
@@ -1969,7 +1969,7 @@ export class QueryClientImpl implements Query {
   ): Promise<QueryPinnedCodesResponse> {
     const data = QueryPinnedCodesRequest.encode(request).finish();
     const promise = this.rpc.request(
-      "ChronicNetwork.cht.cht.Query",
+      "ChronicNetwork.chtd.cht.Query",
       "PinnedCodes",
       data
     );

@@ -8,7 +8,7 @@ import (
 
 	channeltypes "github.com/cosmos/ibc-go/v3/modules/core/04-channel/types"
 
-	"github.com/ChronicNetwork/cht/x/cht/types"
+	"github.com/ChronicNetwork/chtd/x/cht/types"
 
 	wasmvmtypes "github.com/CosmWasm/wasmvm/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"

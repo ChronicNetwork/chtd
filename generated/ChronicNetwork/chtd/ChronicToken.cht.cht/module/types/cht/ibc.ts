@@ -2,7 +2,7 @@
 import * as Long from "long";
 import { util, configure, Writer, Reader } from "protobufjs/minimal";
 
-export const protobufPackage = "ChronicNetwork.cht.cht";
+export const protobufPackage = "ChronicNetwork.chtd.cht";
 
 /** MsgIBCSend */
 export interface MsgIBCSend {
