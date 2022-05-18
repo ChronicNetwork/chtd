@@ -3,8 +3,8 @@ package keeper
 import (
 	"testing"
 
-	"github.com/ChronicNetwork/chtd/x/chtd/keeper"
-	"github.com/ChronicNetwork/chtd/x/chtd/types"
+	"github.com/ChronicNetwork/chtd/x/cht/keeper"
+	"github.com/ChronicNetwork/chtd/x/cht/types"
 	"github.com/cosmos/cosmos-sdk/codec"
 	codectypes "github.com/cosmos/cosmos-sdk/codec/types"
 	"github.com/cosmos/cosmos-sdk/store"
@@ -17,7 +17,7 @@ import (
 	tmdb "github.com/tendermint/tm-db"
 )
 
-func ChtdKeeper(t testing.TB) (*keeper.Keeper, sdk.Context) {
+func ChtKeeper(t testing.TB) (*keeper.Keeper, sdk.Context) {
 	storeKey := sdk.NewKVStoreKey(types.StoreKey)
 	memStoreKey := storetypes.NewMemoryStoreKey(types.MemStoreKey)
 

@@ -3,7 +3,7 @@ package ChronicNetwork.chtd.chtd;
 
 import "gogoproto/gogo.proto";
 
-option go_package = "github.com/ChronicNetwork/chtd/x/chtd/types";
+option go_package = "github.com/ChronicNetwork/chtd/x/cht/types";
 
 // Params defines the parameters for the module.
 message Params {
