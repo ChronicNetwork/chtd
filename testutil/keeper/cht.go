@@ -3,8 +3,8 @@ package keeper
 import (
 	"testing"
 
-	"github.com/ChronicNetwork/chtd/x/cht/keeper"
-	"github.com/ChronicNetwork/chtd/x/cht/types"
+	"github.com/ChronicNetwork/cht/x/cht/keeper"
+	"github.com/ChronicNetwork/cht/x/cht/types"
 	"github.com/cosmos/cosmos-sdk/codec"
 	codectypes "github.com/cosmos/cosmos-sdk/codec/types"
 	"github.com/cosmos/cosmos-sdk/store"

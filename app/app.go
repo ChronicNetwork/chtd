@@ -95,11 +95,11 @@ import (
 	monitoringpkeeper "github.com/tendermint/spn/x/monitoringp/keeper"
 	monitoringptypes "github.com/tendermint/spn/x/monitoringp/types"
 
-	"github.com/ChronicNetwork/chtd/docs"
+	"github.com/ChronicNetwork/cht/docs"
 
-	chtmodule "github.com/ChronicNetwork/chtd/x/cht"
-	chtmodulekeeper "github.com/ChronicNetwork/chtd/x/cht/keeper"
-	chtmoduletypes "github.com/ChronicNetwork/chtd/x/cht/types"
+	chtmodule "github.com/ChronicNetwork/cht/x/cht"
+	chtmodulekeeper "github.com/ChronicNetwork/cht/x/cht/keeper"
+	chtmoduletypes "github.com/ChronicNetwork/cht/x/cht/types"
 	// this line is used by starport scaffolding # stargate/app/moduleImport
 )
 
@@ -376,13 +376,13 @@ func New(
 	)
 	monitoringModule := monitoringp.NewAppModule(appCodec, app.MonitoringKeeper)
 
-	app.ChtKeeper = *Chtmodulekeepers.NewKeeper(
+	app.ChtKeeper = *chtmodulekeeper.NewKeeper(
 		appCodec,
 		keys[chtmoduletypes.StoreKey],
 		keys[chtmoduletypes.MemStoreKey],
 		app.GetSubspace(chtmoduletypes.ModuleName),
 	)
-	chtmoduletypes := chtmodule.NewAppModule(appCodec, app.ChtKeeper, app.AccountKeeper, app.BankKeeper)
+	chtModule := chtmodule.NewAppModule(appCodec, app.ChtKeeper, app.AccountKeeper, app.BankKeeper)
 
 	// this line is used by starport scaffolding # stargate/app/keeperDefinition
 
@@ -424,7 +424,7 @@ func New(
 		params.NewAppModule(app.ParamsKeeper),
 		transferModule,
 		monitoringModule,
-		chtmoduletypes,
+		chtModule,
 		// this line is used by starport scaffolding # stargate/app/appModule
 	)
 
@@ -526,7 +526,7 @@ func New(
 		ibc.NewAppModule(app.IBCKeeper),
 		transferModule,
 		monitoringModule,
-		chtmodule,
+		chtModule,
 		// this line is used by starport scaffolding # stargate/app/appModule
 	)
 	app.sm.RegisterStoreDecoders()
