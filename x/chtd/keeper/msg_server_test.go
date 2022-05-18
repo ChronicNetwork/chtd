@@ -4,10 +4,10 @@ import (
 	"context"
 	"testing"
 
+	keepertest "github.com/ChronicNetwork/chtd/testutil/keeper"
+	"github.com/ChronicNetwork/chtd/x/chtd/keeper"
+	"github.com/ChronicNetwork/chtd/x/chtd/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-    "github.com/GlassflowNFT/chtd/x/chtd/types"
-    "github.com/GlassflowNFT/chtd/x/chtd/keeper"
-    keepertest "github.com/GlassflowNFT/chtd/testutil/keeper"
 )
 
 func setupMsgServer(t testing.TB) (types.MsgServer, context.Context) {

@@ -3,10 +3,10 @@ package keeper_test
 import (
 	"testing"
 
+	testkeeper "github.com/ChronicNetwork/chtd/testutil/keeper"
+	"github.com/ChronicNetwork/chtd/x/chtd/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/stretchr/testify/require"
-	testkeeper 	"github.com/GlassflowNFT/chtd/testutil/keeper"
-	"github.com/GlassflowNFT/chtd/x/chtd/types"
 )
 
 func TestParamsQuery(t *testing.T) {

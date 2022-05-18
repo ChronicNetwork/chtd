@@ -3,17 +3,17 @@ package chtd_test
 import (
 	"testing"
 
-	keepertest "github.com/GlassflowNFT/chtd/testutil/keeper"
-	"github.com/GlassflowNFT/chtd/testutil/nullify"
-	"github.com/GlassflowNFT/chtd/x/chtd"
-	"github.com/GlassflowNFT/chtd/x/chtd/types"
+	keepertest "github.com/ChronicNetwork/chtd/testutil/keeper"
+	"github.com/ChronicNetwork/chtd/testutil/nullify"
+	"github.com/ChronicNetwork/chtd/x/chtd"
+	"github.com/ChronicNetwork/chtd/x/chtd/types"
 	"github.com/stretchr/testify/require"
 )
 
 func TestGenesis(t *testing.T) {
 	genesisState := types.GenesisState{
-		Params:	types.DefaultParams(),
-		
+		Params: types.DefaultParams(),
+
 		// this line is used by starport scaffolding # genesis/test/state
 	}
 
@@ -24,8 +24,6 @@ func TestGenesis(t *testing.T) {
 
 	nullify.Fill(&genesisState)
 	nullify.Fill(got)
-
-	
 
 	// this line is used by starport scaffolding # genesis/test/assert
 }

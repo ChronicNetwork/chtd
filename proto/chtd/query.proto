@@ -1,5 +1,5 @@
 syntax = "proto3";
-package GlassflowNFT.chtd.chtd;
+package ChronicNetwork.chtd.chtd;
 
 import "gogoproto/gogo.proto";
 import "google/api/annotations.proto";
@@ -7,13 +7,13 @@ import "cosmos/base/query/v1beta1/pagination.proto";
 import "chtd/params.proto";
 // this line is used by starport scaffolding # 1
 
-option go_package = "github.com/GlassflowNFT/chtd/x/chtd/types";
+option go_package = "github.com/ChronicNetwork/chtd/x/chtd/types";
 
 // Query defines the gRPC querier service.
 service Query {
   // Parameters queries the parameters of the module.
   rpc Params(QueryParamsRequest) returns (QueryParamsResponse) {
-    option (google.api.http).get = "/GlassflowNFT/chtd/chtd/params";
+    option (google.api.http).get = "/ChronicNetwork/chtd/chtd/params";
   }
   // this line is used by starport scaffolding # 2
 }

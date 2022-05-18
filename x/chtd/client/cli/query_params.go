@@ -3,10 +3,10 @@ package cli
 import (
 	"context"
 
+	"github.com/ChronicNetwork/chtd/x/chtd/types"
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
 	"github.com/spf13/cobra"
-	"github.com/GlassflowNFT/chtd/x/chtd/types"
 )
 
 func CmdQueryParams() *cobra.Command {

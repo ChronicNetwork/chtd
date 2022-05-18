@@ -3,9 +3,9 @@ package keeper_test
 import (
 	"testing"
 
+	testkeeper "github.com/ChronicNetwork/chtd/testutil/keeper"
+	"github.com/ChronicNetwork/chtd/x/chtd/types"
 	"github.com/stretchr/testify/require"
-	testkeeper "github.com/GlassflowNFT/chtd/testutil/keeper"
-	"github.com/GlassflowNFT/chtd/x/chtd/types"
 )
 
 func TestGetParams(t *testing.T) {

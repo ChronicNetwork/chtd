@@ -3,7 +3,7 @@ package main
 import (
 	"os"
 
-	"github.com/GlassflowNFT/chtd/app"
+	"github.com/ChronicNetwork/chtd/app"
 	svrcmd "github.com/cosmos/cosmos-sdk/server/cmd"
 	"github.com/ignite-hq/cli/ignite/pkg/cosmoscmd"
 )

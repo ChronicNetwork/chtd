@@ -3,8 +3,8 @@ package keeper
 import (
 	"testing"
 
-	"github.com/GlassflowNFT/chtd/x/chtd/keeper"
-	"github.com/GlassflowNFT/chtd/x/chtd/types"
+	"github.com/ChronicNetwork/chtd/x/chtd/keeper"
+	"github.com/ChronicNetwork/chtd/x/chtd/types"
 	"github.com/cosmos/cosmos-sdk/codec"
 	codectypes "github.com/cosmos/cosmos-sdk/codec/types"
 	"github.com/cosmos/cosmos-sdk/store"
@@ -37,10 +37,10 @@ func ChtdKeeper(t testing.TB) (*keeper.Keeper, sdk.Context) {
 		"ChtdParams",
 	)
 	k := keeper.NewKeeper(
-	    cdc,
-	    storeKey,
-	    memStoreKey,
-	    paramsSubspace, 
+		cdc,
+		storeKey,
+		memStoreKey,
+		paramsSubspace,
 	)
 
 	ctx := sdk.NewContext(stateStore, tmproto.Header{}, false, log.NewNopLogger())

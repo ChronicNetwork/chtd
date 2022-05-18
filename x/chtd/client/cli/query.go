@@ -10,7 +10,7 @@ import (
 	// "github.com/cosmos/cosmos-sdk/client/flags"
 	// sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/GlassflowNFT/chtd/x/chtd/types"
+	"github.com/ChronicNetwork/chtd/x/chtd/types"
 )
 
 // GetQueryCmd returns the cli query commands for this module
@@ -27,6 +27,5 @@ func GetQueryCmd(queryRoute string) *cobra.Command {
 	cmd.AddCommand(CmdQueryParams())
 	// this line is used by starport scaffolding # 1
 
-	return cmd 
+	return cmd
 }
-

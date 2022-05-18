@@ -1,7 +1,7 @@
 package keeper
 
 import (
-	"github.com/GlassflowNFT/chtd/x/chtd/types"
+	"github.com/ChronicNetwork/chtd/x/chtd/types"
 )
 
 type msgServer struct {

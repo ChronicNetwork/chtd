@@ -3,9 +3,9 @@ package chtd
 import (
 	"fmt"
 
+	"github.com/ChronicNetwork/chtd/x/chtd/keeper"
+	"github.com/ChronicNetwork/chtd/x/chtd/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/GlassflowNFT/chtd/x/chtd/keeper"
-	"github.com/GlassflowNFT/chtd/x/chtd/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )
 

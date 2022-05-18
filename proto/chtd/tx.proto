@@ -1,9 +1,9 @@
 syntax = "proto3";
-package GlassflowNFT.chtd.chtd;
+package ChronicNetwork.chtd.chtd;
 
 // this line is used by starport scaffolding # proto/tx/import
 
-option go_package = "github.com/GlassflowNFT/chtd/x/chtd/types";
+option go_package = "github.com/ChronicNetwork/chtd/x/chtd/types";
 
 // Msg defines the Msg service.
 service Msg {

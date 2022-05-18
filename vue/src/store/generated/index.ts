@@ -1,6 +1,7 @@
 // THIS FILE IS GENERATED AUTOMATICALLY. DO NOT MODIFY.
 
 import ChronicNetworkChtdChronicNetworkChtdCht from './ChronicNetwork/chtd/ChronicNetwork.chtd.cht'
+import ChronicNetworkChtdChronicNetworkChtdChtd from './ChronicNetwork/chtd/ChronicNetwork.chtd.chtd'
 import ChronicTokenChtChronicTokenChtCht from './ChronicToken/cht/ChronicToken.cht.cht'
 import GlassflowNFTChtdGlassflowNFTChtdChtd from './GlassflowNFT/chtd/GlassflowNFT.chtd.chtd'
 import CosmosCosmosSdkCosmosAuthV1Beta1 from './cosmos/cosmos-sdk/cosmos.auth.v1beta1'
@@ -27,6 +28,7 @@ import CosmosIbcGoIbcCorePortV1 from './cosmos/ibc-go/ibc.core.port.v1'
 
 export default { 
   ChronicNetworkChtdChronicNetworkChtdCht: load(ChronicNetworkChtdChronicNetworkChtdCht, 'ChronicNetwork.chtd.cht'),
+  ChronicNetworkChtdChronicNetworkChtdChtd: load(ChronicNetworkChtdChronicNetworkChtdChtd, 'ChronicNetwork.chtd.chtd'),
   ChronicTokenChtChronicTokenChtCht: load(ChronicTokenChtChronicTokenChtCht, 'ChronicToken.cht.cht'),
   GlassflowNFTChtdGlassflowNFTChtdChtd: load(GlassflowNFTChtdGlassflowNFTChtdChtd, 'GlassflowNFT.chtd.chtd'),
   CosmosCosmosSdkCosmosAuthV1Beta1: load(CosmosCosmosSdkCosmosAuthV1Beta1, 'cosmos.auth.v1beta1'),

@@ -1,9 +1,9 @@
 syntax = "proto3";
-package GlassflowNFT.chtd.chtd;
+package ChronicNetwork.chtd.chtd;
 
 import "gogoproto/gogo.proto";
 
-option go_package = "github.com/GlassflowNFT/chtd/x/chtd/types";
+option go_package = "github.com/ChronicNetwork/chtd/x/chtd/types";
 
 // Params defines the parameters for the module.
 message Params {

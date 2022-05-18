@@ -3,8 +3,8 @@ package keeper
 import (
 	"context"
 
+	"github.com/ChronicNetwork/chtd/x/chtd/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/GlassflowNFT/chtd/x/chtd/types"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )
