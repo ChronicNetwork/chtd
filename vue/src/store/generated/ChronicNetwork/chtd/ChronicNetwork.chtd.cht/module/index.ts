@@ -4,25 +4,25 @@ import { StdFee } from "@cosmjs/launchpad";
 import { SigningStargateClient } from "@cosmjs/stargate";
 import { Registry, OfflineSigner, EncodeObject, DirectSecp256k1HdWallet } from "@cosmjs/proto-signing";
 import { Api } from "./rest";
-import { MsgUpdateAdmin } from "./types/cht/tx";
-import { MsgIBCSend } from "./types/cht/ibc";
-import { MsgIBCCloseChannel } from "./types/cht/ibc";
+import { MsgExecuteContract } from "./types/cht/tx";
+import { MsgMigrateContract } from "./types/cht/tx";
 import { MsgStoreCode } from "./types/cht/tx";
 import { MsgInstantiateContract } from "./types/cht/tx";
-import { MsgExecuteContract } from "./types/cht/tx";
+import { MsgIBCSend } from "./types/cht/ibc";
+import { MsgIBCCloseChannel } from "./types/cht/ibc";
+import { MsgUpdateAdmin } from "./types/cht/tx";
 import { MsgClearAdmin } from "./types/cht/tx";
-import { MsgMigrateContract } from "./types/cht/tx";
 
 
 const types = [
-  ["/ChronicNetwork.chtd.cht.MsgUpdateAdmin", MsgUpdateAdmin],
-  ["/ChronicNetwork.chtd.cht.MsgIBCSend", MsgIBCSend],
-  ["/ChronicNetwork.chtd.cht.MsgIBCCloseChannel", MsgIBCCloseChannel],
+  ["/ChronicNetwork.chtd.cht.MsgExecuteContract", MsgExecuteContract],
+  ["/ChronicNetwork.chtd.cht.MsgMigrateContract", MsgMigrateContract],
   ["/ChronicNetwork.chtd.cht.MsgStoreCode", MsgStoreCode],
   ["/ChronicNetwork.chtd.cht.MsgInstantiateContract", MsgInstantiateContract],
-  ["/ChronicNetwork.chtd.cht.MsgExecuteContract", MsgExecuteContract],
+  ["/ChronicNetwork.chtd.cht.MsgIBCSend", MsgIBCSend],
+  ["/ChronicNetwork.chtd.cht.MsgIBCCloseChannel", MsgIBCCloseChannel],
+  ["/ChronicNetwork.chtd.cht.MsgUpdateAdmin", MsgUpdateAdmin],
   ["/ChronicNetwork.chtd.cht.MsgClearAdmin", MsgClearAdmin],
-  ["/ChronicNetwork.chtd.cht.MsgMigrateContract", MsgMigrateContract],
   
 ];
 export const MissingWalletError = new Error("wallet is required");
@@ -55,14 +55,14 @@ const txClient = async (wallet: OfflineSigner, { addr: addr }: TxClientOptions =
 
   return {
     signAndBroadcast: (msgs: EncodeObject[], { fee, memo }: SignAndBroadcastOptions = {fee: defaultFee, memo: ""}) => client.signAndBroadcast(address, msgs, fee,memo),
-    msgUpdateAdmin: (data: MsgUpdateAdmin): EncodeObject => ({ typeUrl: "/ChronicNetwork.chtd.cht.MsgUpdateAdmin", value: MsgUpdateAdmin.fromPartial( data ) }),
-    msgIBCSend: (data: MsgIBCSend): EncodeObject => ({ typeUrl: "/ChronicNetwork.chtd.cht.MsgIBCSend", value: MsgIBCSend.fromPartial( data ) }),
-    msgIBCCloseChannel: (data: MsgIBCCloseChannel): EncodeObject => ({ typeUrl: "/ChronicNetwork.chtd.cht.MsgIBCCloseChannel", value: MsgIBCCloseChannel.fromPartial( data ) }),
+    msgExecuteContract: (data: MsgExecuteContract): EncodeObject => ({ typeUrl: "/ChronicNetwork.chtd.cht.MsgExecuteContract", value: MsgExecuteContract.fromPartial( data ) }),
+    msgMigrateContract: (data: MsgMigrateContract): EncodeObject => ({ typeUrl: "/ChronicNetwork.chtd.cht.MsgMigrateContract", value: MsgMigrateContract.fromPartial( data ) }),
     msgStoreCode: (data: MsgStoreCode): EncodeObject => ({ typeUrl: "/ChronicNetwork.chtd.cht.MsgStoreCode", value: MsgStoreCode.fromPartial( data ) }),
     msgInstantiateContract: (data: MsgInstantiateContract): EncodeObject => ({ typeUrl: "/ChronicNetwork.chtd.cht.MsgInstantiateContract", value: MsgInstantiateContract.fromPartial( data ) }),
-    msgExecuteContract: (data: MsgExecuteContract): EncodeObject => ({ typeUrl: "/ChronicNetwork.chtd.cht.MsgExecuteContract", value: MsgExecuteContract.fromPartial( data ) }),
+    msgIBCSend: (data: MsgIBCSend): EncodeObject => ({ typeUrl: "/ChronicNetwork.chtd.cht.MsgIBCSend", value: MsgIBCSend.fromPartial( data ) }),
+    msgIBCCloseChannel: (data: MsgIBCCloseChannel): EncodeObject => ({ typeUrl: "/ChronicNetwork.chtd.cht.MsgIBCCloseChannel", value: MsgIBCCloseChannel.fromPartial( data ) }),
+    msgUpdateAdmin: (data: MsgUpdateAdmin): EncodeObject => ({ typeUrl: "/ChronicNetwork.chtd.cht.MsgUpdateAdmin", value: MsgUpdateAdmin.fromPartial( data ) }),
     msgClearAdmin: (data: MsgClearAdmin): EncodeObject => ({ typeUrl: "/ChronicNetwork.chtd.cht.MsgClearAdmin", value: MsgClearAdmin.fromPartial( data ) }),
-    msgMigrateContract: (data: MsgMigrateContract): EncodeObject => ({ typeUrl: "/ChronicNetwork.chtd.cht.MsgMigrateContract", value: MsgMigrateContract.fromPartial( data ) }),
     
   };
 };

@@ -7,7 +7,7 @@ paths:
   /cosmwasm/cht/v1/code:
     get:
       summary: Codes gets the metadata for all stored wasm codes
-      operationId: ChronicNetworkChtChtCodes
+      operationId: ChronicNetworkChtdChtCodes
       responses:
         '200':
           description: A successful response.
@@ -317,7 +317,7 @@ paths:
   '/cosmwasm/cht/v1/code/{code_id}':
     get:
       summary: Code gets the binary code and metadata for a singe wasm code
-      operationId: ChronicNetworkChtChtCode
+      operationId: ChronicNetworkChtdChtCode
       responses:
         '200':
           description: A successful response.
@@ -559,7 +559,7 @@ paths:
   '/cosmwasm/cht/v1/code/{code_id}/contracts':
     get:
       summary: ContractsByCode lists all smart contracts for a code id
-      operationId: ChronicNetworkChtChtContractsByCode
+      operationId: ChronicNetworkChtdChtContractsByCode
       responses:
         '200':
           description: A successful response.
@@ -844,7 +844,7 @@ paths:
   /cosmwasm/cht/v1/codes/pinned:
     get:
       summary: PinnedCodes gets the pinned code ids
-      operationId: ChronicNetworkChtChtPinnedCodes
+      operationId: ChronicNetworkChtdChtPinnedCodes
       responses:
         '200':
           description: A successful response.
@@ -1124,7 +1124,7 @@ paths:
   '/cosmwasm/cht/v1/contract/{address}':
     get:
       summary: ContractInfo gets the contract meta data
-      operationId: ChronicNetworkChtChtContractInfo
+      operationId: ChronicNetworkChtdChtContractInfo
       responses:
         '200':
           description: A successful response.
@@ -1556,7 +1556,7 @@ paths:
   '/cosmwasm/cht/v1/contract/{address}/history':
     get:
       summary: ContractHistory gets the contract code history
-      operationId: ChronicNetworkChtChtContractHistory
+      operationId: ChronicNetworkChtdChtContractHistory
       responses:
         '200':
           description: A successful response.
@@ -1883,7 +1883,7 @@ paths:
   '/cosmwasm/cht/v1/contract/{address}/raw/{query_data}':
     get:
       summary: RawContractState gets single key from the raw store data of a contract
-      operationId: ChronicNetworkChtChtRawContractState
+      operationId: ChronicNetworkChtdChtRawContractState
       responses:
         '200':
           description: A successful response.
@@ -2098,7 +2098,7 @@ paths:
   '/cosmwasm/cht/v1/contract/{address}/smart/{query_data}':
     get:
       summary: SmartContractState get smart query result from the contract
-      operationId: ChronicNetworkChtChtSmartContractState
+      operationId: ChronicNetworkChtdChtSmartContractState
       responses:
         '200':
           description: A successful response.
@@ -2314,7 +2314,7 @@ paths:
   '/cosmwasm/cht/v1/contract/{address}/state':
     get:
       summary: AllContractState gets all raw store data for a single contract
-      operationId: ChronicNetworkChtChtAllContractState
+      operationId: ChronicNetworkChtdChtAllContractState
       responses:
         '200':
           description: A successful response.

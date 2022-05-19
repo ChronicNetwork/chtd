@@ -14,3 +14,27 @@ client:
 faucet:
   name: Austin
   coins: ["5cgas", "100000cht"]
+  #host:
+  # rpc:  ":26659"
+  # p2p:  ":26655"
+  # prof:  ":6060"
+  # grpc:  ":9090"
+  # api:  ":1318"
+genesis:
+  chain_id: "morocco-1"
+  app_state:
+    staking:
+      params:
+        bond_denom: "cht"
+    mint:
+      params:
+        mint_denom: "cht"
+    crisis:
+      constant_fee:
+        denom: "cgas"
+    gov:
+      deposit_params:
+          min_deposit:
+            amount: "100000000"
+            denom: "cht"
+  
