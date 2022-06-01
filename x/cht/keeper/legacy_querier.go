@@ -9,7 +9,7 @@ import (
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	abci "github.com/tendermint/tendermint/abci/types"
 
-	"github.com/ChronicNetwork/chtd/x/cht/types"
+	"github.com/ChronicToken/cht/x/cht/types"
 )
 
 const (
@@ -93,10 +93,12 @@ func queryContractState(ctx sdk.Context, bech, queryMethod string, data []byte, 
 	case QueryMethodContractStateAll:
 		resultData := make([]types.Model, 0)
 		// this returns a serialized json object (which internally encoded binary fields properly)
-		keeper.IterateContractState(ctx, contractAddr, func(key, value []byte) bool {
-			resultData = append(resultData, types.Model{Key: key, Value: value})
-			return false
-		})
+		for iter := keeper.GetContractState(ctx, contractAddr); iter.Valid(); iter.Next() {
+			resultData = append(resultData, types.Model{
+				Key:   iter.Key(),
+				Value: iter.Value(),
+			})
+		}
 		bz, err := json.Marshal(resultData)
 		if err != nil {
 			return nil, sdkerrors.Wrap(sdkerrors.ErrJSONMarshal, err.Error())
@@ -124,10 +126,9 @@ func queryCodeList(ctx sdk.Context, keeper types.ViewKeeper) ([]types.CodeInfoRe
 	var info []types.CodeInfoResponse
 	keeper.IterateCodeInfos(ctx, func(i uint64, res types.CodeInfo) bool {
 		info = append(info, types.CodeInfoResponse{
-			CodeID:                i,
-			Creator:               res.Creator,
-			DataHash:              res.CodeHash,
-			InstantiatePermission: res.InstantiateConfig,
+			CodeID:   i,
+			Creator:  res.Creator,
+			DataHash: res.CodeHash,
 		})
 		return false
 	})

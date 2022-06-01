@@ -16,9 +16,7 @@ import (
 	"github.com/spf13/cobra"
 	flag "github.com/spf13/pflag"
 
-	wasmvmapi "github.com/CosmWasm/wasmvm/api"
-
-	"github.com/ChronicNetwork/chtd/x/cht/types"
+	"github.com/ChronicToken/cht/x/cht/types"
 )
 
 func GetQueryCmd() *cobra.Command {
@@ -33,34 +31,12 @@ func GetQueryCmd() *cobra.Command {
 		GetCmdListCode(),
 		GetCmdListContractByCode(),
 		GetCmdQueryCode(),
-		GetCmdQueryCodeInfo(),
 		GetCmdGetContractInfo(),
 		GetCmdGetContractHistory(),
 		GetCmdGetContractState(),
 		GetCmdListPinnedCode(),
-		GetCmdLibVersion(),
 	)
 	return queryCmd
-}
-
-// GetCmdLibVersion gets current libwasmvm version.
-func GetCmdLibVersion() *cobra.Command {
-	cmd := &cobra.Command{
-		Use:     "libwasmvm-version",
-		Short:   "Get libwasmvm version",
-		Long:    "Get libwasmvm version",
-		Aliases: []string{"lib-version"},
-		Args:    cobra.ExactArgs(0),
-		RunE: func(cmd *cobra.Command, args []string) error {
-			version, err := wasmvmapi.LibwasmvmVersion()
-			if err != nil {
-				return fmt.Errorf("error retrieving libwasmvm version: %w", err)
-			}
-			fmt.Println(version)
-			return nil
-		},
-	}
-	return cmd
 }
 
 // GetCmdListCode lists all cht code uploaded
@@ -175,46 +151,7 @@ func GetCmdQueryCode() *cobra.Command {
 			}
 
 			fmt.Printf("Downloading cht code to %s\n", args[1])
-			return ioutil.WriteFile(args[1], res.Data, 0o600)
-		},
-	}
-	flags.AddQueryFlagsToCmd(cmd)
-	return cmd
-}
-
-// GetCmdQueryCodeInfo returns the code info for a given code id
-func GetCmdQueryCodeInfo() *cobra.Command {
-	cmd := &cobra.Command{
-		Use:   "code-info [code_id]",
-		Short: "Prints out metadata of a code id",
-		Long:  "Prints out metadata of a code id",
-		Args:  cobra.ExactArgs(1),
-		RunE: func(cmd *cobra.Command, args []string) error {
-			clientCtx, err := client.GetClientQueryContext(cmd)
-			if err != nil {
-				return err
-			}
-
-			codeID, err := strconv.ParseUint(args[0], 10, 64)
-			if err != nil {
-				return err
-			}
-
-			queryClient := types.NewQueryClient(clientCtx)
-			res, err := queryClient.Code(
-				context.Background(),
-				&types.QueryCodeRequest{
-					CodeId: codeID,
-				},
-			)
-			if err != nil {
-				return err
-			}
-			if res.CodeInfoResponse == nil {
-				return fmt.Errorf("contract not found")
-			}
-
-			return clientCtx.PrintProto(res.CodeInfoResponse)
+			return ioutil.WriteFile(args[1], res.Data, 0600)
 		},
 	}
 	flags.AddQueryFlagsToCmd(cmd)
@@ -230,6 +167,7 @@ func GetCmdGetContractInfo() *cobra.Command {
 		Aliases: []string{"meta", "c"},
 		Args:    cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
+
 			clientCtx, err := client.GetClientQueryContext(cmd)
 			if err != nil {
 				return err
@@ -272,6 +210,7 @@ func GetCmdGetContractState() *cobra.Command {
 		GetCmdGetContractStateSmart(),
 	)
 	return cmd
+
 }
 
 func GetCmdGetContractStateAll() *cobra.Command {

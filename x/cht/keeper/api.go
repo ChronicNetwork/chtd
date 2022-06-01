@@ -1,6 +1,9 @@
 package keeper
 
 import (
+	"fmt"
+	"github.com/cosmos/cosmos-sdk/types/address"
+
 	wasmvm "github.com/CosmWasm/wasmvm"
 	wasmvmtypes "github.com/CosmWasm/wasmvm/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -26,8 +29,8 @@ var (
 )
 
 func humanAddress(canon []byte) (string, uint64, error) {
-	if err := sdk.VerifyAddressFormat(canon); err != nil {
-		return "", costHumanize, err
+	if len(canon) != address.Len {
+		return "", costHumanize, fmt.Errorf("expected %d byte address", address.Len)
 	}
 	return sdk.AccAddress(canon).String(), costHumanize, nil
 }

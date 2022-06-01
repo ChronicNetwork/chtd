@@ -12,10 +12,16 @@ import (
 	"gopkg.in/yaml.v2"
 )
 
-var (
-	ParamStoreKeyUploadAccess      = []byte("uploadAccess")
-	ParamStoreKeyInstantiateAccess = []byte("instantiateAccess")
+const (
+	// DefaultParamspace for params keeper
+	DefaultParamspace = ModuleName
+	// DefaultMaxWasmCodeSize limit max bytes read to prevent gzip bombs
+	DefaultMaxWasmCodeSize = 600 * 1024 * 2
 )
+
+var ParamStoreKeyUploadAccess = []byte("uploadAccess")
+var ParamStoreKeyInstantiateAccess = []byte("instantiateAccess")
+var ParamStoreKeyMaxWasmCodeSize = []byte("maxWasmCodeSize")
 
 var AllAccessTypes = []AccessType{
 	AccessTypeNobody,
@@ -60,7 +66,6 @@ func (a *AccessType) UnmarshalText(text []byte) error {
 	*a = AccessTypeUnspecified
 	return nil
 }
-
 func (a AccessType) MarshalText() ([]byte, error) {
 	return []byte(a.String()), nil
 }
@@ -88,11 +93,12 @@ func ParamKeyTable() paramtypes.KeyTable {
 	return paramtypes.NewKeyTable().RegisterParamSet(&Params{})
 }
 
-// DefaultParams returns default cht parameters
+// DefaultParams returns default wasm parameters
 func DefaultParams() Params {
 	return Params{
 		CodeUploadAccess:             AllowEverybody,
 		InstantiateDefaultPermission: AccessTypeEverybody,
+		MaxWasmCodeSize:              DefaultMaxWasmCodeSize,
 	}
 }
 
@@ -104,21 +110,25 @@ func (p Params) String() string {
 	return string(out)
 }
 
-// ParamSetPairs get the params.ParamSet
+// ParamSetPairs returns the parameter set pairs.
 func (p *Params) ParamSetPairs() paramtypes.ParamSetPairs {
 	return paramtypes.ParamSetPairs{
 		paramtypes.NewParamSetPair(ParamStoreKeyUploadAccess, &p.CodeUploadAccess, validateAccessConfig),
 		paramtypes.NewParamSetPair(ParamStoreKeyInstantiateAccess, &p.InstantiateDefaultPermission, validateAccessType),
+		paramtypes.NewParamSetPair(ParamStoreKeyMaxWasmCodeSize, &p.MaxWasmCodeSize, validateMaxWasmCodeSize),
 	}
 }
 
-// ValidateBasic performs basic validation on cht parameters
+// ValidateBasic performs basic validation on wasm parameters
 func (p Params) ValidateBasic() error {
 	if err := validateAccessType(p.InstantiateDefaultPermission); err != nil {
 		return errors.Wrap(err, "instantiate default permission")
 	}
 	if err := validateAccessConfig(p.CodeUploadAccess); err != nil {
 		return errors.Wrap(err, "upload access")
+	}
+	if err := validateMaxWasmCodeSize(p.MaxWasmCodeSize); err != nil {
+		return errors.Wrap(err, "max wasm code size")
 	}
 	return nil
 }
@@ -145,6 +155,17 @@ func validateAccessType(i interface{}) error {
 		}
 	}
 	return sdkerrors.Wrapf(ErrInvalid, "unknown type: %q", a)
+}
+
+func validateMaxWasmCodeSize(i interface{}) error {
+	a, ok := i.(uint64)
+	if !ok {
+		return sdkerrors.Wrapf(ErrInvalid, "type: %T", i)
+	}
+	if a == 0 {
+		return sdkerrors.Wrap(ErrInvalid, "must be greater 0")
+	}
+	return nil
 }
 
 func (a AccessConfig) ValidateBasic() error {

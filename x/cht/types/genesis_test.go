@@ -1,120 +1,172 @@
 package types
 
 import (
-	codectypes "github.com/cosmos/cosmos-sdk/codec/types"
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	"bytes"
+	"testing"
+
+	"github.com/stretchr/testify/require"
 )
 
-func (s Sequence) ValidateBasic() error {
-	if len(s.IDKey) == 0 {
-		return sdkerrors.Wrap(ErrEmpty, "id key")
+func TestValidateGenesisState(t *testing.T) {
+	specs := map[string]struct {
+		srcMutator func(*GenesisState)
+		expError   bool
+	}{
+		"all good": {
+			srcMutator: func(s *GenesisState) {},
+		},
+		"params invalid": {
+			srcMutator: func(s *GenesisState) {
+				s.Params = Params{}
+			},
+			expError: true,
+		},
+		"codeinfo invalid": {
+			srcMutator: func(s *GenesisState) {
+				s.Codes[0].CodeInfo.CodeHash = nil
+			},
+			expError: true,
+		},
+		"contract invalid": {
+			srcMutator: func(s *GenesisState) {
+				s.Contracts[0].ContractAddress = "invalid"
+			},
+			expError: true,
+		},
+		"sequence invalid": {
+			srcMutator: func(s *GenesisState) {
+				s.Sequences[0].IDKey = nil
+			},
+			expError: true,
+		},
+		"genesis store code message invalid": {
+			srcMutator: func(s *GenesisState) {
+				s.GenMsgs[0].GetStoreCode().WASMByteCode = nil
+			},
+			expError: true,
+		},
+		"genesis instantiate contract message invalid": {
+			srcMutator: func(s *GenesisState) {
+				s.GenMsgs[1].GetInstantiateContract().CodeID = 0
+			},
+			expError: true,
+		},
+		"genesis execute contract message invalid": {
+			srcMutator: func(s *GenesisState) {
+				s.GenMsgs[2].GetExecuteContract().Sender = "invalid"
+			},
+			expError: true,
+		},
+		"genesis invalid message type": {
+			srcMutator: func(s *GenesisState) {
+				s.GenMsgs[0].Sum = nil
+			},
+			expError: true,
+		},
 	}
-	return nil
+	for msg, spec := range specs {
+		t.Run(msg, func(t *testing.T) {
+			state := GenesisFixture(spec.srcMutator)
+			got := state.ValidateBasic()
+			if spec.expError {
+				require.Error(t, got)
+				return
+			}
+			require.NoError(t, got)
+		})
+	}
 }
 
-func (s GenesisState) ValidateBasic() error {
-	if err := s.Params.ValidateBasic(); err != nil {
-		return sdkerrors.Wrap(err, "params")
+func TestCodeValidateBasic(t *testing.T) {
+	specs := map[string]struct {
+		srcMutator func(*Code)
+		expError   bool
+	}{
+		"all good": {srcMutator: func(_ *Code) {}},
+		"code id invalid": {
+			srcMutator: func(c *Code) {
+				c.CodeID = 0
+			},
+			expError: true,
+		},
+		"codeinfo invalid": {
+			srcMutator: func(c *Code) {
+				c.CodeInfo.CodeHash = nil
+			},
+			expError: true,
+		},
+		"codeBytes empty": {
+			srcMutator: func(c *Code) {
+				c.CodeBytes = []byte{}
+			},
+			expError: true,
+		},
+		"codeBytes nil": {
+			srcMutator: func(c *Code) {
+				c.CodeBytes = nil
+			},
+			expError: true,
+		},
+		"codeBytes greater limit": {
+			srcMutator: func(c *Code) {
+				c.CodeBytes = bytes.Repeat([]byte{0x1}, MaxWasmSize+1)
+			},
+			expError: true,
+		},
 	}
-	for i := range s.Codes {
-		if err := s.Codes[i].ValidateBasic(); err != nil {
-			return sdkerrors.Wrapf(err, "code: %d", i)
-		}
+	for msg, spec := range specs {
+		t.Run(msg, func(t *testing.T) {
+			state := CodeFixture(spec.srcMutator)
+			got := state.ValidateBasic()
+			if spec.expError {
+				require.Error(t, got)
+				return
+			}
+			require.NoError(t, got)
+		})
 	}
-	for i := range s.Contracts {
-		if err := s.Contracts[i].ValidateBasic(); err != nil {
-			return sdkerrors.Wrapf(err, "contract: %d", i)
-		}
-	}
-	for i := range s.Sequences {
-		if err := s.Sequences[i].ValidateBasic(); err != nil {
-			return sdkerrors.Wrapf(err, "sequence: %d", i)
-		}
-	}
-	for i := range s.GenMsgs {
-		if err := s.GenMsgs[i].ValidateBasic(); err != nil {
-			return sdkerrors.Wrapf(err, "gen message: %d", i)
-		}
-	}
-	return nil
 }
 
-func (c Code) ValidateBasic() error {
-	if c.CodeID == 0 {
-		return sdkerrors.Wrap(ErrEmpty, "code id")
+func TestContractValidateBasic(t *testing.T) {
+	specs := map[string]struct {
+		srcMutator func(*Contract)
+		expError   bool
+	}{
+		"all good": {srcMutator: func(_ *Contract) {}},
+		"contract address invalid": {
+			srcMutator: func(c *Contract) {
+				c.ContractAddress = "invalid"
+			},
+			expError: true,
+		},
+		"contract info invalid": {
+			srcMutator: func(c *Contract) {
+				c.ContractInfo.Creator = "invalid"
+			},
+			expError: true,
+		},
+		"contract with created set": {
+			srcMutator: func(c *Contract) {
+				c.ContractInfo.Created = &AbsoluteTxPosition{}
+			},
+			expError: true,
+		},
+		"contract state invalid": {
+			srcMutator: func(c *Contract) {
+				c.ContractState = append(c.ContractState, Model{})
+			},
+			expError: true,
+		},
 	}
-	if err := c.CodeInfo.ValidateBasic(); err != nil {
-		return sdkerrors.Wrap(err, "code info")
+	for msg, spec := range specs {
+		t.Run(msg, func(t *testing.T) {
+			state := ContractFixture(spec.srcMutator)
+			got := state.ValidateBasic()
+			if spec.expError {
+				require.Error(t, got)
+				return
+			}
+			require.NoError(t, got)
+		})
 	}
-	if err := validateChtCode(c.CodeBytes); err != nil {
-		return sdkerrors.Wrap(err, "code bytes")
-	}
-	return nil
-}
-
-func (c Contract) ValidateBasic() error {
-	if _, err := sdk.AccAddressFromBech32(c.ContractAddress); err != nil {
-		return sdkerrors.Wrap(err, "contract address")
-	}
-	if err := c.ContractInfo.ValidateBasic(); err != nil {
-		return sdkerrors.Wrap(err, "contract info")
-	}
-
-	if c.ContractInfo.Created != nil {
-		return sdkerrors.Wrap(ErrInvalid, "created must be empty")
-	}
-	for i := range c.ContractState {
-		if err := c.ContractState[i].ValidateBasic(); err != nil {
-			return sdkerrors.Wrapf(err, "contract state %d", i)
-		}
-	}
-	return nil
-}
-
-// AsMsg returns the underlying cosmos-sdk message instance. Null when can not be mapped to a known type.
-func (m GenesisState_GenMsgs) AsMsg() sdk.Msg {
-	if msg := m.GetStoreCode(); msg != nil {
-		return msg
-	}
-	if msg := m.GetInstantiateContract(); msg != nil {
-		return msg
-	}
-	if msg := m.GetExecuteContract(); msg != nil {
-		return msg
-	}
-	return nil
-}
-
-func (m GenesisState_GenMsgs) ValidateBasic() error {
-	msg := m.AsMsg()
-	if msg == nil {
-		return sdkerrors.Wrapf(sdkerrors.ErrInvalidType, "unknown message")
-	}
-	return msg.ValidateBasic()
-}
-
-// ValidateGenesis performs basic validation of supply genesis data returning an
-// error for any failed validation criteria.
-func ValidateGenesis(data GenesisState) error {
-	return data.ValidateBasic()
-}
-
-var _ codectypes.UnpackInterfacesMessage = GenesisState{}
-
-// UnpackInterfaces implements codectypes.UnpackInterfaces
-func (s GenesisState) UnpackInterfaces(unpacker codectypes.AnyUnpacker) error {
-	for _, v := range s.Contracts {
-		if err := v.UnpackInterfaces(unpacker); err != nil {
-			return err
-		}
-	}
-	return nil
-}
-
-var _ codectypes.UnpackInterfacesMessage = &Contract{}
-
-// UnpackInterfaces implements codectypes.UnpackInterfaces
-func (c *Contract) UnpackInterfaces(unpacker codectypes.AnyUnpacker) error {
-	return c.ContractInfo.UnpackInterfaces(unpacker)
 }

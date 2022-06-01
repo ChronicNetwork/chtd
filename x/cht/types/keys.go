@@ -8,16 +8,16 @@ const (
 	// ModuleName defines the module name
 	ModuleName = "cht"
 
-	// StoreKey defines the primary module store key
+	// StoreKey is the string store representation
 	StoreKey = ModuleName
 
 	// TStoreKey is the string transient store representation
 	TStoreKey = "transient_" + ModuleName
 
-	// QuerierRoute defines the module's query routing key
+	// QuerierRoute is the querier route for the Cht module
 	QuerierRoute = ModuleName
 
-	// RouterKey is the msg router key for the cht module
+	// RouterKey is the msg router key for the Cht module
 	RouterKey = ModuleName
 )
 
@@ -36,18 +36,18 @@ var (
 	KeyLastInstanceID = append(SequenceKeyPrefix, []byte("lastContractId")...)
 )
 
-// GetCodeKey constructs the key for retrieving the ID for the CHT code
+// GetCodeKey constructs the key for retreiving the ID for the Cht code
 func GetCodeKey(codeID uint64) []byte {
 	contractIDBz := sdk.Uint64ToBigEndian(codeID)
 	return append(CodeKeyPrefix, contractIDBz...)
 }
 
-// GetContractAddressKey returns the key for the CHT contract instance
+// GetContractAddressKey returns the key for the Chronic contract instance
 func GetContractAddressKey(addr sdk.AccAddress) []byte {
 	return append(ContractKeyPrefix, addr...)
 }
 
-// GetContractStorePrefix returns the store prefix for the CHT contract instance
+// GetContractStorePrefix returns the store prefix for the Chronic contract instance
 func GetContractStorePrefix(addr sdk.AccAddress) []byte {
 	return append(ContractStorePrefix, addr...)
 }
@@ -57,8 +57,7 @@ func GetContractStorePrefix(addr sdk.AccAddress) []byte {
 func GetContractByCreatedSecondaryIndexKey(contractAddr sdk.AccAddress, c ContractCodeHistoryEntry) []byte {
 	prefix := GetContractByCodeIDSecondaryIndexPrefix(c.CodeID)
 	prefixLen := len(prefix)
-	contractAddrLen := len(contractAddr)
-	r := make([]byte, prefixLen+AbsoluteTxPositionLen+contractAddrLen)
+	r := make([]byte, prefixLen+AbsoluteTxPositionLen+len(contractAddr.Bytes()))
 	copy(r[0:], prefix)
 	copy(r[prefixLen:], c.Updated.Bytes())
 	copy(r[prefixLen+AbsoluteTxPositionLen:], contractAddr)
@@ -88,8 +87,7 @@ func GetContractCodeHistoryElementKey(contractAddr sdk.AccAddress, pos uint64) [
 // GetContractCodeHistoryElementPrefix returns the key prefix for a contract code history entry: `<prefix><contractAddr>`
 func GetContractCodeHistoryElementPrefix(contractAddr sdk.AccAddress) []byte {
 	prefixLen := len(ContractCodeHistoryElementPrefix)
-	contractAddrLen := len(contractAddr)
-	r := make([]byte, prefixLen+contractAddrLen)
+	r := make([]byte, prefixLen+len(contractAddr.Bytes()))
 	copy(r[0:], ContractCodeHistoryElementPrefix)
 	copy(r[prefixLen:], contractAddr)
 	return r

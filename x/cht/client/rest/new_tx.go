@@ -8,12 +8,12 @@ import (
 	"github.com/cosmos/cosmos-sdk/types/rest"
 	"github.com/gorilla/mux"
 
-	"github.com/ChronicNetwork/chtd/x/cht/types"
+	"github.com/ChronicToken/cht/x/cht/types"
 )
 
 func registerNewTxRoutes(cliCtx client.Context, r *mux.Router) {
-	r.HandleFunc("/cht/contract/{contractAddr}/admin", setContractAdminHandlerFn(cliCtx)).Methods("PUT")
-	r.HandleFunc("/cht/contract/{contractAddr}/code", migrateContractHandlerFn(cliCtx)).Methods("PUT")
+	r.HandleFunc("/wasm/contract/{contractAddr}/admin", setContractAdminHandlerFn(cliCtx)).Methods("PUT")
+	r.HandleFunc("/wasm/contract/{contractAddr}/code", migrateContractHandlerFn(cliCtx)).Methods("PUT")
 }
 
 type migrateContractReq struct {

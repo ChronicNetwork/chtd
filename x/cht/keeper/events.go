@@ -8,10 +8,10 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 
-	"github.com/ChronicNetwork/chtd/x/cht/types"
+	"github.com/ChronicToken/cht/x/cht/types"
 )
 
-// newWasmModuleEvent creates with cht module event for interacting with the given contract. Adds custom attributes
+// newWasmModuleEvent creates with wasm module event for interacting with the given contract. Adds custom attributes
 // to this event.
 func newWasmModuleEvent(customAttributes []wasmvmtypes.EventAttribute, contractAddr sdk.AccAddress) (sdk.Events, error) {
 	attrs, err := contractSDKEventAttributes(customAttributes, contractAddr)
@@ -19,7 +19,7 @@ func newWasmModuleEvent(customAttributes []wasmvmtypes.EventAttribute, contractA
 		return nil, err
 	}
 
-	// each cht invocation always returns one sdk.Event
+	// each wasm invocation always returns one sdk.Event
 	return sdk.Events{sdk.NewEvent(types.ChtModuleEventType, attrs...)}, nil
 }
 
@@ -45,7 +45,7 @@ func newCustomEvents(evts wasmvmtypes.Events, contractAddr sdk.AccAddress) (sdk.
 // convert and add contract address issuing this event
 func contractSDKEventAttributes(customAttributes []wasmvmtypes.EventAttribute, contractAddr sdk.AccAddress) ([]sdk.Attribute, error) {
 	attrs := []sdk.Attribute{sdk.NewAttribute(types.AttributeKeyContractAddr, contractAddr.String())}
-	// append attributes from cht to the sdk.Event
+	// append attributes from wasm to the sdk.Event
 	for _, l := range customAttributes {
 		// ensure key and value are non-empty (and trim what is there)
 		key := strings.TrimSpace(l.Key)

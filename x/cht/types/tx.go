@@ -9,7 +9,7 @@ import (
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )
 
-// RawContractMessage defines a json message that is sent or returned by a cht contract.
+// RawContractMessage defines a json message that is sent or returned by a wasm contract.
 // This type can hold any type of bytes. Until validateBasic is called there should not be
 // any assumptions made that the data is valid syntax or semantic.
 type RawContractMessage []byte
@@ -68,6 +68,7 @@ func (msg MsgStoreCode) ValidateBasic() error {
 
 func (msg MsgStoreCode) GetSignBytes() []byte {
 	return sdk.MustSortJSON(ModuleCdc.MustMarshalJSON(&msg))
+
 }
 
 func (msg MsgStoreCode) GetSigners() []sdk.AccAddress {
@@ -97,6 +98,7 @@ func (msg MsgInstantiateContract) ValidateBasic() error {
 
 	if err := validateLabel(msg.Label); err != nil {
 		return sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "label is required")
+
 	}
 
 	if !msg.Funds.IsValid() {
@@ -153,6 +155,7 @@ func (msg MsgExecuteContract) ValidateBasic() error {
 
 func (msg MsgExecuteContract) GetSignBytes() []byte {
 	return sdk.MustSortJSON(ModuleCdc.MustMarshalJSON(&msg))
+
 }
 
 func (msg MsgExecuteContract) GetSigners() []sdk.AccAddress {
@@ -161,6 +164,7 @@ func (msg MsgExecuteContract) GetSigners() []sdk.AccAddress {
 		panic(err.Error())
 	}
 	return []sdk.AccAddress{senderAddr}
+
 }
 
 func (msg MsgMigrateContract) Route() string {
@@ -191,6 +195,7 @@ func (msg MsgMigrateContract) ValidateBasic() error {
 
 func (msg MsgMigrateContract) GetSignBytes() []byte {
 	return sdk.MustSortJSON(ModuleCdc.MustMarshalJSON(&msg))
+
 }
 
 func (msg MsgMigrateContract) GetSigners() []sdk.AccAddress {
@@ -199,6 +204,7 @@ func (msg MsgMigrateContract) GetSigners() []sdk.AccAddress {
 		panic(err.Error())
 	}
 	return []sdk.AccAddress{senderAddr}
+
 }
 
 func (msg MsgUpdateAdmin) Route() string {
@@ -227,6 +233,7 @@ func (msg MsgUpdateAdmin) ValidateBasic() error {
 
 func (msg MsgUpdateAdmin) GetSignBytes() []byte {
 	return sdk.MustSortJSON(ModuleCdc.MustMarshalJSON(&msg))
+
 }
 
 func (msg MsgUpdateAdmin) GetSigners() []sdk.AccAddress {
@@ -235,6 +242,7 @@ func (msg MsgUpdateAdmin) GetSigners() []sdk.AccAddress {
 		panic(err.Error())
 	}
 	return []sdk.AccAddress{senderAddr}
+
 }
 
 func (msg MsgClearAdmin) Route() string {
@@ -257,6 +265,7 @@ func (msg MsgClearAdmin) ValidateBasic() error {
 
 func (msg MsgClearAdmin) GetSignBytes() []byte {
 	return sdk.MustSortJSON(ModuleCdc.MustMarshalJSON(&msg))
+
 }
 
 func (msg MsgClearAdmin) GetSigners() []sdk.AccAddress {
@@ -265,6 +274,7 @@ func (msg MsgClearAdmin) GetSigners() []sdk.AccAddress {
 		panic(err.Error())
 	}
 	return []sdk.AccAddress{senderAddr}
+
 }
 
 func (msg MsgIBCSend) Route() string {
@@ -272,7 +282,7 @@ func (msg MsgIBCSend) Route() string {
 }
 
 func (msg MsgIBCSend) Type() string {
-	return "cht-ibc-send"
+	return "wasm-ibc-send"
 }
 
 func (msg MsgIBCSend) ValidateBasic() error {
@@ -292,7 +302,7 @@ func (msg MsgIBCCloseChannel) Route() string {
 }
 
 func (msg MsgIBCCloseChannel) Type() string {
-	return "cht-ibc-close"
+	return "wasm-ibc-close"
 }
 
 func (msg MsgIBCCloseChannel) ValidateBasic() error {

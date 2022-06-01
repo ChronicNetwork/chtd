@@ -8,7 +8,7 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/ChronicNetwork/chtd/x/cht/keeper"
+	"github.com/ChronicToken/cht/x/cht/keeper"
 
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
@@ -22,22 +22,22 @@ import (
 	"github.com/spf13/cobra"
 	tmtypes "github.com/tendermint/tendermint/types"
 
-	"github.com/ChronicNetwork/chtd/x/cht/types"
+	"github.com/ChronicToken/cht/x/cht/types"
 )
 
 // GenesisReader reads genesis data. Extension point for custom genesis state readers.
 type GenesisReader interface {
-	ReadWasmGenesis(cmd *cobra.Command) (*GenesisData, error)
+	ReadChtGenesis(cmd *cobra.Command) (*GenesisData, error)
 }
 
 // GenesisMutator extension point to modify the cht module genesis state.
 // This gives flexibility to customize the data structure in the genesis file a bit.
 type GenesisMutator interface {
-	// AlterWasmModuleState loads the genesis from the default or set home dir,
+	// AlterChtModuleState loads the genesis from the default or set home dir,
 	// unmarshalls the cht module section into the object representation
 	// calls the callback function to modify it
 	// and marshals the modified state back into the genesis file
-	AlterWasmModuleState(cmd *cobra.Command, callback func(state *types.GenesisState, appState map[string]json.RawMessage) error) error
+	AlterChtModuleState(cmd *cobra.Command, callback func(state *types.GenesisState, appState map[string]json.RawMessage) error) error
 }
 
 // GenesisStoreCodeCmd cli command to add a `MsgStoreCode` to the cht section of the genesis
@@ -45,7 +45,7 @@ type GenesisMutator interface {
 func GenesisStoreCodeCmd(defaultNodeHome string, genesisMutator GenesisMutator) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "store [cht file] --run-as [owner_address_or_key_name]\",",
-		Short: "Upload a cht binary",
+		Short: "Upload a chronic binary",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			senderAddr, err := getActorAddress(cmd)
@@ -61,7 +61,7 @@ func GenesisStoreCodeCmd(defaultNodeHome string, genesisMutator GenesisMutator) 
 				return err
 			}
 
-			return genesisMutator.AlterWasmModuleState(cmd, func(state *types.GenesisState, _ map[string]json.RawMessage) error {
+			return genesisMutator.AlterChtModuleState(cmd, func(state *types.GenesisState, _ map[string]json.RawMessage) error {
 				state.GenMsgs = append(state.GenMsgs, types.GenesisState_GenMsgs{
 					Sum: &types.GenesisState_GenMsgs_StoreCode{StoreCode: &msg},
 				})
@@ -71,7 +71,6 @@ func GenesisStoreCodeCmd(defaultNodeHome string, genesisMutator GenesisMutator) 
 	}
 	cmd.Flags().String(flagRunAs, "", "The address that is stored as code creator")
 	cmd.Flags().String(flagInstantiateByEverybody, "", "Everybody can instantiate a contract from the code, optional")
-	cmd.Flags().String(flagInstantiateNobody, "", "Nobody except the governance process can instantiate a contract from the code, optional")
 	cmd.Flags().String(flagInstantiateByAddress, "", "Only this address can instantiate a contract instance from the code, optional")
 
 	cmd.Flags().String(flags.FlagHome, defaultNodeHome, "The application home directory")
@@ -85,7 +84,7 @@ func GenesisStoreCodeCmd(defaultNodeHome string, genesisMutator GenesisMutator) 
 func GenesisInstantiateContractCmd(defaultNodeHome string, genesisMutator GenesisMutator) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "instantiate-contract [code_id_int64] [json_encoded_init_args] --label [text] --run-as [address] --admin [address,optional] --amount [coins,optional]",
-		Short: "Instantiate a cht contract",
+		Short: "Instantiate a chronic contract",
 		Args:  cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			senderAddr, err := getActorAddress(cmd)
@@ -101,7 +100,7 @@ func GenesisInstantiateContractCmd(defaultNodeHome string, genesisMutator Genesi
 				return err
 			}
 
-			return genesisMutator.AlterWasmModuleState(cmd, func(state *types.GenesisState, appState map[string]json.RawMessage) error {
+			return genesisMutator.AlterChtModuleState(cmd, func(state *types.GenesisState, appState map[string]json.RawMessage) error {
 				// simple sanity check that sender has some balance although it may be consumed by appState previous message already
 				switch ok, err := hasAccountBalance(cmd, appState, senderAddr, msg.Funds); {
 				case err != nil:
@@ -111,11 +110,11 @@ func GenesisInstantiateContractCmd(defaultNodeHome string, genesisMutator Genesi
 				}
 
 				//  does code id exists?
-				codeInfos, err := GetAllCodes(state)
+				codeInfos, err := getAllCodes(state)
 				if err != nil {
 					return err
 				}
-				var codeInfo *CodeMeta
+				var codeInfo *codeMeta
 				for i := range codeInfos {
 					if codeInfos[i].CodeID == msg.CodeID {
 						codeInfo = &codeInfos[i]
@@ -139,7 +138,6 @@ func GenesisInstantiateContractCmd(defaultNodeHome string, genesisMutator Genesi
 	cmd.Flags().String(flagAmount, "", "Coins to send to the contract during instantiation")
 	cmd.Flags().String(flagLabel, "", "A human-readable name for this contract in lists")
 	cmd.Flags().String(flagAdmin, "", "Address of an admin")
-	cmd.Flags().Bool(flagNoAdmin, false, "You must set this explicitly if you don't want an admin")
 	cmd.Flags().String(flagRunAs, "", "The address that pays the init funds. It is the creator of the contract.")
 
 	cmd.Flags().String(flags.FlagHome, defaultNodeHome, "The application home directory")
@@ -153,7 +151,7 @@ func GenesisInstantiateContractCmd(defaultNodeHome string, genesisMutator Genesi
 func GenesisExecuteContractCmd(defaultNodeHome string, genesisMutator GenesisMutator) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "execute [contract_addr_bech32] [json_encoded_send_args] --run-as [address] --amount [coins,optional]",
-		Short: "Execute a command on a cht contract",
+		Short: "Execute a command on a chronic contract",
 		Args:  cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			senderAddr, err := getActorAddress(cmd)
@@ -169,7 +167,7 @@ func GenesisExecuteContractCmd(defaultNodeHome string, genesisMutator GenesisMut
 				return err
 			}
 
-			return genesisMutator.AlterWasmModuleState(cmd, func(state *types.GenesisState, appState map[string]json.RawMessage) error {
+			return genesisMutator.AlterChtModuleState(cmd, func(state *types.GenesisState, appState map[string]json.RawMessage) error {
 				// simple sanity check that sender has some balance although it may be consumed by appState previous message already
 				switch ok, err := hasAccountBalance(cmd, appState, senderAddr, msg.Funds); {
 				case err != nil:
@@ -206,15 +204,16 @@ func GenesisListCodesCmd(defaultNodeHome string, genReader GenesisReader) *cobra
 		Short: "Lists all codes from genesis code dump and queued messages",
 		Args:  cobra.ExactArgs(0),
 		RunE: func(cmd *cobra.Command, args []string) error {
-			g, err := genReader.ReadWasmGenesis(cmd)
+			g, err := genReader.ReadChtGenesis(cmd)
 			if err != nil {
 				return err
 			}
-			all, err := GetAllCodes(g.WasmModuleState)
+			all, err := getAllCodes(g.ChtModuleState)
 			if err != nil {
 				return err
 			}
 			return printJSONOutput(cmd, all)
+
 		},
 	}
 	cmd.Flags().String(flags.FlagHome, defaultNodeHome, "The application home directory")
@@ -230,12 +229,12 @@ func GenesisListContractsCmd(defaultNodeHome string, genReader GenesisReader) *c
 		Short: "Lists all contracts from genesis contract dump and queued messages",
 		Args:  cobra.ExactArgs(0),
 		RunE: func(cmd *cobra.Command, args []string) error {
-			g, err := genReader.ReadWasmGenesis(cmd)
+			g, err := genReader.ReadChtGenesis(cmd)
 			if err != nil {
 				return err
 			}
-			state := g.WasmModuleState
-			all := GetAllContracts(state)
+			state := g.ChtModuleState
+			all := getAllContracts(state)
 			return printJSONOutput(cmd, all)
 		},
 	}
@@ -254,15 +253,15 @@ func printJSONOutput(cmd *cobra.Command, obj interface{}) error {
 	return clientCtx.PrintString(string(bz))
 }
 
-type CodeMeta struct {
+type codeMeta struct {
 	CodeID uint64         `json:"code_id"`
 	Info   types.CodeInfo `json:"info"`
 }
 
-func GetAllCodes(state *types.GenesisState) ([]CodeMeta, error) {
-	all := make([]CodeMeta, len(state.Codes))
+func getAllCodes(state *types.GenesisState) ([]codeMeta, error) {
+	all := make([]codeMeta, len(state.Codes))
 	for i, c := range state.Codes {
-		all[i] = CodeMeta{
+		all[i] = codeMeta{
 			CodeID: c.CodeID,
 			Info:   c.CodeInfo,
 		}
@@ -283,7 +282,7 @@ func GetAllCodes(state *types.GenesisState) ([]CodeMeta, error) {
 				accessConfig = state.Params.InstantiateDefaultPermission.With(creator)
 			}
 			hash := sha256.Sum256(msg.WASMByteCode)
-			all = append(all, CodeMeta{
+			all = append(all, codeMeta{
 				CodeID: seq,
 				Info: types.CodeInfo{
 					CodeHash:          hash[:],
@@ -297,15 +296,15 @@ func GetAllCodes(state *types.GenesisState) ([]CodeMeta, error) {
 	return all, nil
 }
 
-type ContractMeta struct {
+type contractMeta struct {
 	ContractAddress string             `json:"contract_address"`
 	Info            types.ContractInfo `json:"info"`
 }
 
-func GetAllContracts(state *types.GenesisState) []ContractMeta {
-	all := make([]ContractMeta, len(state.Contracts))
+func getAllContracts(state *types.GenesisState) []contractMeta {
+	all := make([]contractMeta, len(state.Contracts))
 	for i, c := range state.Contracts {
-		all[i] = ContractMeta{
+		all[i] = contractMeta{
 			ContractAddress: c.ContractAddress,
 			Info:            c.ContractInfo,
 		}
@@ -314,7 +313,7 @@ func GetAllContracts(state *types.GenesisState) []ContractMeta {
 	seq := contractSeqValue(state)
 	for _, m := range state.GenMsgs {
 		if msg := m.GetInstantiateContract(); msg != nil {
-			all = append(all, ContractMeta{
+			all = append(all, contractMeta{
 				ContractAddress: keeper.BuildContractAddress(msg.CodeID, seq).String(),
 				Info: types.ContractInfo{
 					CodeID:  msg.CodeID,
@@ -367,19 +366,19 @@ func hasContract(state *types.GenesisState, contractAddr string) bool {
 
 // GenesisData contains raw and unmarshalled data from the genesis file
 type GenesisData struct {
-	GenesisFile     string
-	GenDoc          *tmtypes.GenesisDoc
-	AppState        map[string]json.RawMessage
-	WasmModuleState *types.GenesisState
+	GenesisFile    string
+	GenDoc         *tmtypes.GenesisDoc
+	AppState       map[string]json.RawMessage
+	ChtModuleState *types.GenesisState
 }
 
-func NewGenesisData(genesisFile string, genDoc *tmtypes.GenesisDoc, appState map[string]json.RawMessage, wasmModuleState *types.GenesisState) *GenesisData {
-	return &GenesisData{GenesisFile: genesisFile, GenDoc: genDoc, AppState: appState, WasmModuleState: wasmModuleState}
+func NewGenesisData(genesisFile string, genDoc *tmtypes.GenesisDoc, appState map[string]json.RawMessage, chtModuleState *types.GenesisState) *GenesisData {
+	return &GenesisData{GenesisFile: genesisFile, GenDoc: genDoc, AppState: appState, ChtModuleState: chtModuleState}
 }
 
 type DefaultGenesisReader struct{}
 
-func (d DefaultGenesisReader) ReadWasmGenesis(cmd *cobra.Command) (*GenesisData, error) {
+func (d DefaultGenesisReader) ReadChtGenesis(cmd *cobra.Command) (*GenesisData, error) {
 	clientCtx := client.GetClientContextFromCmd(cmd)
 	serverCtx := server.GetServerContextFromCmd(cmd)
 	config := serverCtx.Config
@@ -390,24 +389,22 @@ func (d DefaultGenesisReader) ReadWasmGenesis(cmd *cobra.Command) (*GenesisData,
 	if err != nil {
 		return nil, fmt.Errorf("failed to unmarshal genesis state: %w", err)
 	}
-	var wasmGenesisState types.GenesisState
+	var chtGenesisState types.GenesisState
 	if appState[types.ModuleName] != nil {
 		clientCtx := client.GetClientContextFromCmd(cmd)
-		clientCtx.Codec.MustUnmarshalJSON(appState[types.ModuleName], &wasmGenesisState)
+		clientCtx.Codec.MustUnmarshalJSON(appState[types.ModuleName], &chtGenesisState)
 	}
 
 	return NewGenesisData(
 		genFile,
 		genDoc,
 		appState,
-		&wasmGenesisState,
+		&chtGenesisState,
 	), nil
 }
 
-var (
-	_ GenesisReader  = DefaultGenesisIO{}
-	_ GenesisMutator = DefaultGenesisIO{}
-)
+var _ GenesisReader = DefaultGenesisIO{}
+var _ GenesisMutator = DefaultGenesisIO{}
 
 // DefaultGenesisIO implements both interfaces to read and modify the genesis state for this module.
 // This implementation uses the default data structure that is used by the module.go genesis import/ export.
@@ -420,29 +417,29 @@ func NewDefaultGenesisIO() *DefaultGenesisIO {
 	return &DefaultGenesisIO{DefaultGenesisReader: DefaultGenesisReader{}}
 }
 
-// AlterWasmModuleState loads the genesis from the default or set home dir,
+// AlterChtModuleState loads the genesis from the default or set home dir,
 // unmarshalls the cht module section into the object representation
 // calls the callback function to modify it
 // and marshals the modified state back into the genesis file
-func (x DefaultGenesisIO) AlterWasmModuleState(cmd *cobra.Command, callback func(state *types.GenesisState, appState map[string]json.RawMessage) error) error {
-	g, err := x.ReadWasmGenesis(cmd)
+func (x DefaultGenesisIO) AlterChtModuleState(cmd *cobra.Command, callback func(state *types.GenesisState, appState map[string]json.RawMessage) error) error {
+	g, err := x.ReadChtGenesis(cmd)
 	if err != nil {
 		return err
 	}
-	if err := callback(g.WasmModuleState, g.AppState); err != nil {
+	if err := callback(g.ChtModuleState, g.AppState); err != nil {
 		return err
 	}
 	// and store update
-	if err := g.WasmModuleState.ValidateBasic(); err != nil {
+	if err := g.ChtModuleState.ValidateBasic(); err != nil {
 		return err
 	}
 	clientCtx := client.GetClientContextFromCmd(cmd)
-	wasmGenStateBz, err := clientCtx.Codec.MarshalJSON(g.WasmModuleState)
+	chtGenStateBz, err := clientCtx.Codec.MarshalJSON(g.ChtModuleState)
 	if err != nil {
-		return sdkerrors.Wrap(err, "marshal cht genesis state")
+		return sdkerrors.Wrap(err, "marshal chronic genesis state")
 	}
 
-	g.AppState[types.ModuleName] = wasmGenStateBz
+	g.AppState[types.ModuleName] = chtGenStateBz
 	appStateJSON, err := json.Marshal(g.AppState)
 	if err != nil {
 		return sdkerrors.Wrap(err, "marshal application genesis state")

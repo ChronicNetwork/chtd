@@ -3,23 +3,21 @@ package keeper
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/ChronicNetwork/chtd/x/cht/types"
+	"github.com/ChronicToken/cht/x/cht/types"
 )
 
 var _ types.ContractOpsKeeper = PermissionedKeeper{}
 
-// decoratedKeeper contains a subset of the cht keeper that are already or can be guarded by an authorization policy in the future
+// decoratedKeeper contains a subset of the wasm keeper that are already or can be guarded by an authorization policy in the future
 type decoratedKeeper interface {
-	create(ctx sdk.Context, creator sdk.AccAddress, chtCode []byte, instantiateAccess *types.AccessConfig, authZ AuthorizationPolicy) (codeID uint64, err error)
+	create(ctx sdk.Context, creator sdk.AccAddress, wasmCode []byte, instantiateAccess *types.AccessConfig, authZ AuthorizationPolicy) (codeID uint64, err error)
 	instantiate(ctx sdk.Context, codeID uint64, creator, admin sdk.AccAddress, initMsg []byte, label string, deposit sdk.Coins, authZ AuthorizationPolicy) (sdk.AccAddress, []byte, error)
 	migrate(ctx sdk.Context, contractAddress sdk.AccAddress, caller sdk.AccAddress, newCodeID uint64, msg []byte, authZ AuthorizationPolicy) ([]byte, error)
 	setContractAdmin(ctx sdk.Context, contractAddress, caller, newAdmin sdk.AccAddress, authZ AuthorizationPolicy) error
 	pinCode(ctx sdk.Context, codeID uint64) error
 	unpinCode(ctx sdk.Context, codeID uint64) error
 	execute(ctx sdk.Context, contractAddress sdk.AccAddress, caller sdk.AccAddress, msg []byte, coins sdk.Coins) ([]byte, error)
-	Sudo(ctx sdk.Context, contractAddress sdk.AccAddress, msg []byte) ([]byte, error)
 	setContractInfoExtension(ctx sdk.Context, contract sdk.AccAddress, extra types.ContractInfoExtension) error
-	setAccessConfig(ctx sdk.Context, codeID uint64, config types.AccessConfig) error
 }
 
 type PermissionedKeeper struct {
@@ -39,8 +37,8 @@ func NewDefaultPermissionKeeper(nested decoratedKeeper) *PermissionedKeeper {
 	return NewPermissionedKeeper(nested, DefaultAuthorizationPolicy{})
 }
 
-func (p PermissionedKeeper) Create(ctx sdk.Context, creator sdk.AccAddress, chtCode []byte, instantiateAccess *types.AccessConfig) (codeID uint64, err error) {
-	return p.nested.create(ctx, creator, chtCode, instantiateAccess, p.authZPolicy)
+func (p PermissionedKeeper) Create(ctx sdk.Context, creator sdk.AccAddress, wasmCode []byte, instantiateAccess *types.AccessConfig) (codeID uint64, err error) {
+	return p.nested.create(ctx, creator, wasmCode, instantiateAccess, p.authZPolicy)
 }
 
 func (p PermissionedKeeper) Instantiate(ctx sdk.Context, codeID uint64, creator, admin sdk.AccAddress, initMsg []byte, label string, deposit sdk.Coins) (sdk.AccAddress, []byte, error) {
@@ -53,10 +51,6 @@ func (p PermissionedKeeper) Execute(ctx sdk.Context, contractAddress sdk.AccAddr
 
 func (p PermissionedKeeper) Migrate(ctx sdk.Context, contractAddress sdk.AccAddress, caller sdk.AccAddress, newCodeID uint64, msg []byte) ([]byte, error) {
 	return p.nested.migrate(ctx, contractAddress, caller, newCodeID, msg, p.authZPolicy)
-}
-
-func (p PermissionedKeeper) Sudo(ctx sdk.Context, contractAddress sdk.AccAddress, msg []byte) ([]byte, error) {
-	return p.nested.Sudo(ctx, contractAddress, msg)
 }
 
 func (p PermissionedKeeper) UpdateContractAdmin(ctx sdk.Context, contractAddress sdk.AccAddress, caller sdk.AccAddress, newAdmin sdk.AccAddress) error {
@@ -78,9 +72,4 @@ func (p PermissionedKeeper) UnpinCode(ctx sdk.Context, codeID uint64) error {
 // SetExtraContractAttributes updates the extra attributes that can be stored with the contract info
 func (p PermissionedKeeper) SetContractInfoExtension(ctx sdk.Context, contract sdk.AccAddress, extra types.ContractInfoExtension) error {
 	return p.nested.setContractInfoExtension(ctx, contract, extra)
-}
-
-// SetAccessConfig updates the access config of a code id.
-func (p PermissionedKeeper) SetAccessConfig(ctx sdk.Context, codeID uint64, config types.AccessConfig) error {
-	return p.nested.setAccessConfig(ctx, codeID, config)
 }

@@ -13,19 +13,19 @@ import (
 	"github.com/cosmos/cosmos-sdk/types/rest"
 	"github.com/gorilla/mux"
 
-	"github.com/ChronicNetwork/chtd/x/cht/keeper"
-	"github.com/ChronicNetwork/chtd/x/cht/types"
+	"github.com/ChronicToken/cht/x/cht/keeper"
+	"github.com/ChronicToken/cht/x/cht/types"
 )
 
 func registerQueryRoutes(cliCtx client.Context, r *mux.Router) {
-	r.HandleFunc("/cht/code", listCodesHandlerFn(cliCtx)).Methods("GET")
-	r.HandleFunc("/cht/code/{codeID}", queryCodeHandlerFn(cliCtx)).Methods("GET")
-	r.HandleFunc("/cht/code/{codeID}/contracts", listContractsByCodeHandlerFn(cliCtx)).Methods("GET")
-	r.HandleFunc("/cht/contract/{contractAddr}", queryContractHandlerFn(cliCtx)).Methods("GET")
-	r.HandleFunc("/cht/contract/{contractAddr}/state", queryContractStateAllHandlerFn(cliCtx)).Methods("GET")
-	r.HandleFunc("/cht/contract/{contractAddr}/history", queryContractHistoryFn(cliCtx)).Methods("GET")
-	r.HandleFunc("/cht/contract/{contractAddr}/smart/{query}", queryContractStateSmartHandlerFn(cliCtx)).Queries("encoding", "{encoding}").Methods("GET")
-	r.HandleFunc("/cht/contract/{contractAddr}/raw/{key}", queryContractStateRawHandlerFn(cliCtx)).Queries("encoding", "{encoding}").Methods("GET")
+	r.HandleFunc("/wasm/code", listCodesHandlerFn(cliCtx)).Methods("GET")
+	r.HandleFunc("/wasm/code/{codeID}", queryCodeHandlerFn(cliCtx)).Methods("GET")
+	r.HandleFunc("/wasm/code/{codeID}/contracts", listContractsByCodeHandlerFn(cliCtx)).Methods("GET")
+	r.HandleFunc("/wasm/contract/{contractAddr}", queryContractHandlerFn(cliCtx)).Methods("GET")
+	r.HandleFunc("/wasm/contract/{contractAddr}/state", queryContractStateAllHandlerFn(cliCtx)).Methods("GET")
+	r.HandleFunc("/wasm/contract/{contractAddr}/history", queryContractHistoryFn(cliCtx)).Methods("GET")
+	r.HandleFunc("/wasm/contract/{contractAddr}/smart/{query}", queryContractStateSmartHandlerFn(cliCtx)).Queries("encoding", "{encoding}").Methods("GET")
+	r.HandleFunc("/wasm/contract/{contractAddr}/raw/{key}", queryContractStateRawHandlerFn(cliCtx)).Queries("encoding", "{encoding}").Methods("GET")
 }
 
 func listCodesHandlerFn(cliCtx client.Context) http.HandlerFunc {

@@ -8,7 +8,7 @@ import (
 	simtypes "github.com/cosmos/cosmos-sdk/types/simulation"
 	"github.com/cosmos/cosmos-sdk/x/simulation"
 
-	"github.com/ChronicNetwork/chtd/x/cht/types"
+	"github.com/ChronicToken/cht/x/cht/types"
 )
 
 func ParamChanges(r *rand.Rand, cdc codec.Codec) []simtypes.ParamChange {
@@ -28,6 +28,11 @@ func ParamChanges(r *rand.Rand, cdc codec.Codec) []simtypes.ParamChange {
 				return fmt.Sprintf("%q", params.CodeUploadAccess.Permission.String())
 			},
 		),
+		simulation.NewSimParamChange(types.ModuleName, string(types.ParamStoreKeyMaxWasmCodeSize),
+			func(r *rand.Rand) string {
+				return fmt.Sprintf(`"%d"`, params.MaxWasmCodeSize)
+			},
+		),
 	}
 }
 
@@ -38,5 +43,6 @@ func RandomParams(r *rand.Rand) types.Params {
 	return types.Params{
 		CodeUploadAccess:             accessConfig,
 		InstantiateDefaultPermission: accessConfig.Permission,
+		MaxWasmCodeSize:              uint64(simtypes.RandIntBetween(r, 1, 600) * 1024),
 	}
 }

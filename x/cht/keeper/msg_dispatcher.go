@@ -1,17 +1,15 @@
 package keeper
 
 import (
-	"fmt"
-
 	wasmvmtypes "github.com/CosmWasm/wasmvm/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	abci "github.com/tendermint/tendermint/abci/types"
 
-	"github.com/ChronicNetwork/chtd/x/cht/types"
+	"github.com/ChronicToken/cht/x/cht/types"
 )
 
-// Messenger is an extension point for custom chtd message handling
+// Messenger is an extension point for custom wasmd message handling
 type Messenger interface {
 	// DispatchMsg encodes the wasmVM message and dispatches it.
 	DispatchMsg(ctx sdk.Context, contractAddr sdk.AccAddress, contractIBCPortID string, msg wasmvmtypes.CosmosMsg) (events []sdk.Event, data [][]byte, err error)
@@ -117,8 +115,8 @@ func (d MessageDispatcher) DispatchSubmessages(ctx sdk.Context, contractAddr sdk
 			continue
 		}
 
-		// otherwise, we create a SubMsgResult and pass it into the calling contract
-		var result wasmvmtypes.SubMsgResult
+		// otherwise, we create a SubcallResult and pass it into the calling contract
+		var result wasmvmtypes.SubcallResult
 		if err == nil {
 			// just take the first one for now if there are multiple sub-sdk messages
 			// and safely return nothing if no data
@@ -126,17 +124,15 @@ func (d MessageDispatcher) DispatchSubmessages(ctx sdk.Context, contractAddr sdk
 			if len(data) > 0 {
 				responseData = data[0]
 			}
-			result = wasmvmtypes.SubMsgResult{
-				Ok: &wasmvmtypes.SubMsgResponse{
+			result = wasmvmtypes.SubcallResult{
+				Ok: &wasmvmtypes.SubcallResponse{
 					Events: sdkEventsToWasmVMEvents(filteredEvents),
 					Data:   responseData,
 				},
 			}
 		} else {
-			// Issue #759 - we don't return error string for worries of non-determinism
-			moduleLogger(ctx).Info("Redacting submessage error", "cause", err)
-			result = wasmvmtypes.SubMsgResult{
-				Err: redactError(err).Error(),
+			result = wasmvmtypes.SubcallResult{
+				Err: err.Error(),
 			}
 		}
 
@@ -157,23 +153,6 @@ func (d MessageDispatcher) DispatchSubmessages(ctx sdk.Context, contractAddr sdk
 		}
 	}
 	return rsp, nil
-}
-
-// Issue #759 - we don't return error string for worries of non-determinism
-func redactError(err error) error {
-	// Do not redact system errors
-	// SystemErrors must be created in x/cht and we can ensure determinism
-	if wasmvmtypes.ToSystemError(err) != nil {
-		return err
-	}
-
-	// FIXME: do we want to hardcode some constant string mappings here as well?
-	// Or better document them? (SDK error string may change on a patch release to fix wording)
-	// sdk/11 is out of gas
-	// sdk/5 is insufficient funds (on bank send)
-	// (we can theoretically redact less in the future, but this is a first step to safety)
-	codespace, code, _ := sdkerrors.ABCIInfo(err, false)
-	return fmt.Errorf("codespace: %s, code: %d", codespace, code)
 }
 
 func filterEvents(events []sdk.Event) []sdk.Event {

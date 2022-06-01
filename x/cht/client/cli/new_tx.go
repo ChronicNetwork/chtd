@@ -9,14 +9,14 @@ import (
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	"github.com/spf13/cobra"
 
-	"github.com/ChronicNetwork/chtd/x/cht/types"
+	"github.com/ChronicToken/cht/x/cht/types"
 )
 
 // MigrateContractCmd will migrate a contract to a new code version
 func MigrateContractCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:     "migrate [contract_addr_bech32] [new_code_id_int64] [json_encoded_migration_args]",
-		Short:   "Migrate a cht contract to a new code version",
+		Short:   "Migrate a chronic contract to a new code version",
 		Aliases: []string{"update", "mig", "m"},
 		Args:    cobra.ExactArgs(3),
 		RunE: func(cmd *cobra.Command, args []string) error {

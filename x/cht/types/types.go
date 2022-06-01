@@ -15,11 +15,6 @@ const (
 	defaultMemoryCacheSize    uint32 = 100 // in MiB
 	defaultSmartQueryGasLimit uint64 = 3_000_000
 	defaultContractDebugMode         = false
-
-	// ContractAddrLen defines a valid address length for contracts
-	ContractAddrLen = 32
-	// SDKAddrLen defines a valid address length that was used in sdk address generation
-	SDKAddrLen = 20
 )
 
 func (m Model) ValidateBasic() error {
@@ -53,7 +48,7 @@ func NewCodeInfo(codeHash []byte, creator sdk.AccAddress, instantiatePermission 
 
 var AllCodeHistoryTypes = []ContractCodeHistoryOperationType{ContractCodeHistoryOperationTypeGenesis, ContractCodeHistoryOperationTypeInit, ContractCodeHistoryOperationTypeMigrate}
 
-// NewContractInfo creates a new instance of a given CHT contract info
+// NewContractInfo creates a new instance of a given Chronic contract info
 func NewContractInfo(codeID uint64, creator, admin sdk.AccAddress, label string, createdAt *AbsoluteTxPosition) ContractInfo {
 	var adminAddr string
 	if !admin.Empty() {
@@ -287,7 +282,7 @@ func NewInfo(creator sdk.AccAddress, deposit sdk.Coins) wasmvmtypes.MessageInfo 
 	}
 }
 
-// NewChtCoins translates between Cosmos SDK coins and cht coins
+// NewChtCoins translates between Cosmos SDK coins and Chronic coins
 func NewChtCoins(cosmosCoins sdk.Coins) (chtCoins []wasmvmtypes.Coin) {
 	for _, coin := range cosmosCoins {
 		chtCoin := wasmvmtypes.Coin{
@@ -299,7 +294,7 @@ func NewChtCoins(cosmosCoins sdk.Coins) (chtCoins []wasmvmtypes.Coin) {
 	return chtCoins
 }
 
-// ChtConfig is the extra config required for cht
+// ChtConfig is the extra config required for wasm
 type ChtConfig struct {
 	// SimulationGasLimit is the max gas to be used in a tx simulation call.
 	// When not set the consensus max block gas is used instead
@@ -312,39 +307,11 @@ type ChtConfig struct {
 	ContractDebugMode bool
 }
 
-// DefaultChtConfig returns the default settings for ChtConfig
+// DefaultChtConfig returns the default settings for WasmConfig
 func DefaultChtConfig() ChtConfig {
 	return ChtConfig{
 		SmartQueryGasLimit: defaultSmartQueryGasLimit,
 		MemoryCacheSize:    defaultMemoryCacheSize,
 		ContractDebugMode:  defaultContractDebugMode,
-	}
-}
-
-// VerifyAddressLen ensures that the address matches the expected length
-func VerifyAddressLen() func(addr []byte) error {
-	return func(addr []byte) error {
-		if len(addr) != ContractAddrLen && len(addr) != SDKAddrLen {
-			return sdkerrors.ErrInvalidAddress
-		}
-		return nil
-	}
-}
-
-// IsSubset will return true if the caller is the same as the superset,
-// or if the caller is more restrictive than the superset.
-func (a AccessConfig) IsSubset(superSet AccessConfig) bool {
-	switch superSet.Permission {
-	case AccessTypeEverybody:
-		// Everything is a subset of this
-		return a.Permission != AccessTypeUnspecified
-	case AccessTypeNobody:
-		// Only an exact match is a subset of this
-		return a.Permission == AccessTypeNobody
-	case AccessTypeOnlyAddress:
-		// An exact match or nobody
-		return a.Permission == AccessTypeNobody || (a.Permission == AccessTypeOnlyAddress && a.Address == superSet.Address)
-	default:
-		return false
 	}
 }

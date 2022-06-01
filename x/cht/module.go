@@ -5,6 +5,11 @@ import (
 	"encoding/json"
 	"math/rand"
 
+	"github.com/ChronicToken/cht/x/cht/client/cli"
+	"github.com/ChronicToken/cht/x/cht/client/rest"
+	"github.com/ChronicToken/cht/x/cht/keeper"
+	"github.com/ChronicToken/cht/x/cht/simulation"
+	"github.com/ChronicToken/cht/x/cht/types"
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/codec"
 	cdctypes "github.com/cosmos/cosmos-sdk/codec/types"
@@ -13,18 +18,11 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/module"
 	simtypes "github.com/cosmos/cosmos-sdk/types/simulation"
-	simKeeper "github.com/cosmos/cosmos-sdk/x/simulation"
 	"github.com/gorilla/mux"
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
 	"github.com/spf13/cast"
 	"github.com/spf13/cobra"
 	abci "github.com/tendermint/tendermint/abci/types"
-
-	"github.com/ChronicNetwork/chtd/x/cht/client/cli"
-	"github.com/ChronicNetwork/chtd/x/cht/client/rest"
-	"github.com/ChronicNetwork/chtd/x/cht/keeper"
-	"github.com/ChronicNetwork/chtd/x/cht/simulation"
-	"github.com/ChronicNetwork/chtd/x/cht/types"
 )
 
 var (
@@ -34,9 +32,9 @@ var (
 
 // Module init related flags
 const (
-	flagChtMemoryCacheSize    = "cht.memory_cache_size"
-	flagChtQueryGasLimit      = "cht.query_gas_limit"
-	flagChtSimulationGasLimit = "cht.simulation_gas_limit"
+	flagChtMemoryCacheSize    = "wasm.memory_cache_size"
+	flagChtQueryGasLimit      = "wasm.query_gas_limit"
+	flagChtSimulationGasLimit = "wasm.simulation_gas_limit"
 )
 
 // AppModuleBasic defines the basic application module used by the cht module.
@@ -104,31 +102,15 @@ type AppModule struct {
 	cdc                codec.Codec
 	keeper             *Keeper
 	validatorSetSource keeper.ValidatorSetSource
-	accountKeeper      types.AccountKeeper // for simulation
-	bankKeeper         simKeeper.BankKeeper
 }
 
-// ConsensusVersion is a sequence number for state-breaking change of the
-// module. It should be incremented on each consensus-breaking change
-// introduced by the module. To avoid wrong/empty versions, the initial version
-// should be set to 1.
-func (AppModule) ConsensusVersion() uint64 { return 1 }
-
 // NewAppModule creates a new AppModule object
-func NewAppModule(
-	cdc codec.Codec,
-	keeper *Keeper,
-	validatorSetSource keeper.ValidatorSetSource,
-	ak types.AccountKeeper,
-	bk simKeeper.BankKeeper,
-) AppModule {
+func NewAppModule(cdc codec.Codec, keeper *Keeper, validatorSetSource keeper.ValidatorSetSource) AppModule {
 	return AppModule{
 		AppModuleBasic:     AppModuleBasic{},
 		cdc:                cdc,
 		keeper:             keeper,
 		validatorSetSource: validatorSetSource,
-		accountKeeper:      ak,
-		bankKeeper:         bk,
 	}
 }
 
@@ -137,7 +119,7 @@ func (am AppModule) RegisterServices(cfg module.Configurator) {
 	types.RegisterQueryServer(cfg.QueryServer(), NewQuerier(am.keeper))
 }
 
-func (am AppModule) LegacyQuerierHandler(amino *codec.LegacyAmino) sdk.Querier { //nolint:staticcheck
+func (am AppModule) LegacyQuerierHandler(amino *codec.LegacyAmino) sdk.Querier {
 	return keeper.NewLegacyQuerier(am.keeper, am.keeper.QueryGasLimit())
 }
 
@@ -182,8 +164,6 @@ func (AppModule) EndBlock(_ sdk.Context, _ abci.RequestEndBlock) []abci.Validato
 	return []abci.ValidatorUpdate{}
 }
 
-// ____________________________________________________________________________
-
 // AppModuleSimulation functions
 
 // GenerateGenesisState creates a randomized GenState of the bank module.
@@ -207,20 +187,18 @@ func (am AppModule) RegisterStoreDecoder(sdr sdk.StoreDecoderRegistry) {
 
 // WeightedOperations returns the all the gov module operations with their respective weights.
 func (am AppModule) WeightedOperations(simState module.SimulationState) []simtypes.WeightedOperation {
-	return simulation.WeightedOperations(&simState, am.accountKeeper, am.bankKeeper, am.keeper)
+	return nil
 }
-
-// ____________________________________________________________________________
 
 // AddModuleInitFlags implements servertypes.ModuleInitFlags interface.
 func AddModuleInitFlags(startCmd *cobra.Command) {
 	defaults := DefaultChtConfig()
-	startCmd.Flags().Uint32(flagChtMemoryCacheSize, defaults.MemoryCacheSize, "Sets the size in MiB (NOT bytes) of an in-memory cache for cht modules. Set to 0 to disable.")
-	startCmd.Flags().Uint64(flagChtQueryGasLimit, defaults.SmartQueryGasLimit, "Set the max gas that can be spent on executing a query with a cht contract")
+	startCmd.Flags().Uint32(flagChtMemoryCacheSize, defaults.MemoryCacheSize, "Sets the size in MiB (NOT bytes) of an in-memory cache for Cht modules. Set to 0 to disable.")
+	startCmd.Flags().Uint64(flagChtQueryGasLimit, defaults.SmartQueryGasLimit, "Set the max gas that can be spent on executing a query with a Cht contract")
 	startCmd.Flags().String(flagChtSimulationGasLimit, "", "Set the max gas that can be spent when executing a simulation TX")
 }
 
-// ReadChtConfig reads the cht specifig configuration
+// ReadChtConfig reads the Cht specifig configuration
 func ReadChtConfig(opts servertypes.AppOptions) (types.ChtConfig, error) {
 	cfg := types.DefaultChtConfig()
 	var err error
@@ -251,3 +229,6 @@ func ReadChtConfig(opts servertypes.AppOptions) (types.ChtConfig, error) {
 	}
 	return cfg, nil
 }
+
+// ConsensusVersion implements AppModule/ConsensusVersion.
+func (AppModule) ConsensusVersion() uint64 { return 1 }
