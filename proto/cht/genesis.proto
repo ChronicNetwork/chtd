@@ -1,14 +1,13 @@
 syntax = "proto3";
-package ChronicNetwork.chtd.cht;
+package ChronicToken.cht.cht;
 
 import "gogoproto/gogo.proto";
 import "cht/types.proto";
 import "cht/tx.proto";
-// this line is used by starport scaffolding # genesis/proto/import
 
-option go_package = "github.com/ChronicNetwork/chtd/x/cht/types";
+option go_package = "github.com/ChronicToken/cht/x/cht/types";
 
-// GenesisState defines the cht module's genesis state.
+// GenesisState - genesis state of x/wasm
 message GenesisState {
   Params params = 1 [ (gogoproto.nullable) = false ];
   repeated Code codes = 2

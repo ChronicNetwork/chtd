@@ -1,9 +1,9 @@
 syntax = "proto3";
-package ChronicNetwork.chtd.cht;
+package ChronicToken.cht.cht;
 
 import "gogoproto/gogo.proto";
 
-option go_package = "github.com/ChronicNetwork/chtd/x/cht/types";
+option go_package = "github.com/ChronicToken/cht/x/cht/types";
 option (gogoproto.goproto_getters_all) = false;
 
 // MsgIBCSend

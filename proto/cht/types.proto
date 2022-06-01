@@ -1,11 +1,11 @@
 syntax = "proto3";
-package ChronicNetwork.chtd.cht;
+package ChronicToken.cht.cht;
 
 import "cosmos_proto/cosmos.proto";
 import "gogoproto/gogo.proto";
 import "google/protobuf/any.proto";
 
-option go_package = "github.com/ChronicNetwork/chtd/x/cht/types";
+option go_package = "github.com/ChronicToken/cht/x/cht/types";
 option (gogoproto.goproto_getters_all) = false;
 option (gogoproto.equal_all) = true;
 
@@ -49,6 +49,8 @@ message Params {
   ];
   AccessType instantiate_default_permission = 2
       [ (gogoproto.moretags) = "yaml:\"instantiate_default_permission\"" ];
+  uint64 max_wasm_code_size = 3
+      [ (gogoproto.moretags) = "yaml:\"max_wasm_code_size\"" ];
 }
 
 // CodeInfo is data for the uploaded contract WASM code
