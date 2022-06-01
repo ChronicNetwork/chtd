@@ -1,40 +1,40 @@
 accounts:
-  - name: Alex
-    coins: ["20000cgas", "200000000cht"]
-  - name: Austin
-    coins: ["10000cgas", "100000000cht"]
+  - name: alex
+    coins: ["100000000000ucht,200000000000ucgas"]
+  - name: austin
+    coins: ["100000000000ucht,200000000000ucgas"]
 validator:
-  name: Alex
-  staked: "100000000cht"
+  name: austin
+  staked: "10000000ucht"
 client:
   openapi:
     path: "docs/static/openapi.yml"
   vuex:
     path: "vue/src/store"
 faucet:
-  name: Austin
-  coins: ["5cgas", "100000cht"]
-  #host:
-  # rpc:  ":26659"
-  # p2p:  ":26655"
-  # prof:  ":6060"
-  # grpc:  ":9090"
-  # api:  ":1318"
+  name: austin
+  coins: [ "5cht", "100000cgas" ]
+  coins_max: [ "10000cht", "10000cgas" ]
+#host:
+#  rpc: ":26659"
+#  p2p: ":26658"
+#  prof: ":6060"
+#  grpc: ":9090"
+#  api: ":1318"
 genesis:
-  chain_id: "morocco-1"
+  chain_id: "athena-1"
   app_state:
     staking:
       params:
-        bond_denom: "cht"
+        bond_denom: "ucht"
     mint:
       params:
-        mint_denom: "cht"
+        mint_denom: "cgas"
     crisis:
       constant_fee:
         denom: "cgas"
     gov:
       deposit_params:
-          min_deposit:
-            amount: "100000000"
-            denom: "cht"
-  
+        min_deposit:
+          - amount: "10000000"
+            denom: "ucht"

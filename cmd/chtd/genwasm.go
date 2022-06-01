@@ -4,24 +4,25 @@ import (
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/spf13/cobra"
 
-	chtCli "github.com/ChronicNetwork/chtd/x/cht/client/cli"
+	"github.com/ChronicToken/cht/x/cht/client/cli"
 )
 
 func AddGenesisChtMsgCmd(defaultNodeHome string) *cobra.Command {
 	txCmd := &cobra.Command{
 		Use:                        "add-cht-genesis-message",
-		Short:                      "CHT genesis subcommands",
+		Short:                      "cht genesis subcommands",
 		DisableFlagParsing:         true,
 		SuggestionsMinimumDistance: 2,
 		RunE:                       client.ValidateCmd,
 	}
-	genesisIO := chtCli.NewDefaultGenesisIO()
+	genesisIO := cli.NewDefaultGenesisIO()
 	txCmd.AddCommand(
-		chtCli.GenesisStoreCodeCmd(defaultNodeHome, genesisIO),
-		chtCli.GenesisInstantiateContractCmd(defaultNodeHome, genesisIO),
-		chtCli.GenesisExecuteContractCmd(defaultNodeHome, genesisIO),
-		chtCli.GenesisListContractsCmd(defaultNodeHome, genesisIO),
-		chtCli.GenesisListCodesCmd(defaultNodeHome, genesisIO),
+		cli.GenesisStoreCodeCmd(defaultNodeHome, genesisIO),
+		cli.GenesisInstantiateContractCmd(defaultNodeHome, genesisIO),
+		cli.GenesisExecuteContractCmd(defaultNodeHome, genesisIO),
+		cli.GenesisListContractsCmd(defaultNodeHome, genesisIO),
+		cli.GenesisListCodesCmd(defaultNodeHome, genesisIO),
 	)
 	return txCmd
+
 }
