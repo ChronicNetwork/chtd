@@ -1,5 +1,5 @@
 # Chronic Token
-## NOTE: THIS REPO IS DEPRECIATED! IF YOU PLAN ON SPINNING UP A NODE FOR MAIN NETWORK, PLEASE REFER TO THE [PROPER REPO](https://github.com/ChronicNetwork/net)
+## NOTE: THIS REPO IS DEPRECIATED! IF YOU PLAN ON SPINNING UP A NODE FOR MAIN NETWORK, PLEASE REFER TO THE [PROPER REPO](https://github.com/ChronicNetwork/cht)
 **chronic** is a blockchain built using Cosmos SDK and Tendermint and created with [Starport](https://github.com/tendermint/starport).
 
 ## Get started
